@@ -15,7 +15,7 @@ const messages = {
     PostList: "لیست",
     PublicUsers: "کاربران عمومی",
     PublicUserList: "لیست",
-    PublicUserNew: "جدید",
+    EditUser: "جدید",
     signUp: "Sign-up",
     passwordReset: "Password Reset",
     multiStepSignUp: "Multi-steps Sign up",

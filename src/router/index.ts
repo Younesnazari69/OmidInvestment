@@ -36,10 +36,19 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/PublicUsers/PublicUserList",
         name: "PublicUserList",
-        component: () => import("@/views/apps/Horizontal.vue"),
+        component: () => import("@/views/apps/UserList.vue"),
         meta: {
-          pageTitle: "کاربران عمومی",
-          breadcrumbs: ["PublicUsers", "PublicUserList"],
+          pageTitle: "کاربران",
+          breadcrumbs: ["کاربران", "لیست کاربران"],
+        },
+      },
+      {
+        path: "/PublicUsers/EditUser/:guid",
+        name: "EditUser",
+        component: () => import("@/views/apps/EditUser.vue"),
+        meta: {
+          pageTitle: "ویرایش/افزودن کاربر",
+          breadcrumbs: ["کاربران", "ویرایش/افزودن کاربر"],
         },
       },
       // {

@@ -86,8 +86,8 @@ const MainMenuConfig: Array<MenuItem> = [
             route: "/PublicUsers/PublicUserList",
           }, 
           {
-            heading: "PublicUserNew",
-            route: "/crafted/account/overview",
+            heading: "EditUser",
+            route: "/PublicUsers/EditUser/null"
           }
         ],
       },
