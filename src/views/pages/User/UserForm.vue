@@ -14,7 +14,7 @@
       <div class="row fv-row mb-7">
         <!--begin::Col-->
         <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="id"
-            autocomplete="off" hidden="true" />
+          autocomplete="off" hidden="true" />
         <div class="col-xl-4">
           <label class="form-label fw-bold text-dark fs-6">نام</label>
           <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="firstname"
@@ -41,12 +41,12 @@
         <!--end::Col-->
         <!--begin::Col-->
         <div class="col-xl-4">
-          <label class="form-label fw-bold text-dark fs-6">پست الکترونیک</label>
-          <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="email"
+          <label class="form-label fw-bold text-dark fs-6">تلفن همراه</label>
+          <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="mobile"
             autocomplete="off" />
           <div class="fv-plugins-message-container">
             <div class="fv-help-block">
-              <ErrorMessage name="email" />
+              <ErrorMessage name="mobile" />
             </div>
           </div>
         </div>
@@ -65,8 +65,18 @@
           </div>
         </div>
         <!--end::Col-->
-
-        <!--begin::Col-->
+        <div class="col-xl-8">
+          <label class="form-label fw-bold text-dark fs-6">پست الکترونیک</label>
+          <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="email"
+            autocomplete="off" />
+          <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+              <ErrorMessage name="email" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row fv-row mb-7">
         <div class="col-xl-4">
           <label class="form-label fw-bold text-dark fs-6">نام کاربری</label>
           <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="username"
@@ -119,18 +129,22 @@
 
         </div>
         <!--end::Col-->
+
+
       </div>
       <!--begin::Actions-->
       <div class="text-center">
         <!--begin::Submit button-->
         <button tabindex="3" type="submit" ref="submitButton" id="kt_sign_in_submit"
-          class="btn btn-lg btn-primary w-100 mb-5">
-          <span class="indicator-label"> ورود </span>
-
+          class="btn btn-lg btn-success w-25 mb-5">
+          <span class="indicator-label"> ذخیره </span>
           <span class="indicator-progress">
-            Please wait...
+            لطفا منتظر بمانید...
             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
+        </button>
+        <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-primary w-25 mb-5">
+          <span class="indicator-label"> بازگشت به لیست </span>
         </button>
         <!--end::Submit button-->
       </div>
@@ -153,7 +167,7 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 
 export default defineComponent({
-  name: "EditUser",
+  name: "UserForm",
   components: {
     Field,
     VForm,
@@ -174,18 +188,19 @@ export default defineComponent({
       email: Yup.string().label("email"),
       firstname: Yup.string().required().label("firstname"),
       lastname: Yup.string().required().label("lastname"),
-      jobTitle: Yup.string().required().label("jobTitle"),
+      mobile: Yup.string().required().label("mobile"),
+      jobTitle: Yup.string().label("jobTitle"),
 
     });
 
     onBeforeMount(() => {
       const Guid = route.params.guid;
-      store.FechUser(Guid).then(() => {
-        debugger;
-        userData.value = store.UserData;
-     //   UserModel.fields.id=store.UserData.userId;     
-      });//{ Email: store.UserData.email, password: store.UserData.password,Username:store.UserData.username,Firstname:store.UserData.firstname }});// store.UserData 
-      // store.UserData
+      if (Guid != "null") {
+        store.FechUser(Guid).then(() => {
+          debugger;
+          userData.value = store.UserData;
+        });
+      }
     });
     onMounted(() => {
       nextTick(() => {
@@ -217,7 +232,7 @@ export default defineComponent({
             confirmButton: "btn fw-semobold btn-light-primary",
           },
         }).then(() => {
-          router.push({ name: "PublicUserList" });
+          router.push({ name: "UserList" });
           // Go to page after successfully login
           // Swal.fire({
           //   text: "خطا در ذخیره اطلاعات",
@@ -249,12 +264,17 @@ export default defineComponent({
       submitButton.value?.removeAttribute("data-kt-indicator");
       // eslint-disable-next-line
       submitButton.value!.disabled = false;
+
+    };
+    const ReternToList = () => {
+      router.push({ name: "UserList" });
     };
     return {
       onSubmitLogin,
       UserModel,
       submitButton,
-      userData
+      userData,
+      ReternToList
     };
   },
 });

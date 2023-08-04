@@ -12,9 +12,11 @@ export interface User {
   remember: boolean;
 }
 export interface LoginUser {
-
   AcceptAgreement: boolean;
   ChangePasswordShow: boolean;
+  CompanyID: number;
+  Company: string;
+  Groups: object[];
   Email: string;
   Firstname: string;
   Fullname: string;
@@ -23,14 +25,18 @@ export interface LoginUser {
   Mobile: string;
   PCode: number;
   Phone: string;
+  Guid:string;
+
 }
 
 export const useAuthStore = defineStore("auth", () => {
   const errors = ref({});
   const user = ref<LoginUser>({} as LoginUser);
   const isAuthenticated = ref(!!JwtService.getToken());
-
-  function decodeMyToken(token: string) {
+  if (JwtService.getToken() != null) {
+    setAuth(JwtService.getToken());
+  }
+   function decodeMyToken(token: string) {
     var parts = token.split(".");
     if (parts.length !== 3) return null;
     try {
@@ -56,13 +62,15 @@ export const useAuthStore = defineStore("auth", () => {
       return null;
     }
   };
-  function setAuth(data: any) {
-    let userLogin = decodeMyToken(data.accessToken);
+  function setAuth(accessToken: any) {
+
+    let userLogin = decodeMyToken(accessToken);
     let authUser: LoginUser = userLogin.data;
     isAuthenticated.value = true;
-    user.value = authUser;
+  //await FechUser(authUser.Guid);
+  user.value = authUser;
+
     errors.value = {};
-    JwtService.saveToken(data.accessToken);
   }
 
   function setError(error: any) {
@@ -75,11 +83,22 @@ export const useAuthStore = defineStore("auth", () => {
     errors.value = [];
     JwtService.destroyToken();
   }
-
+  const FechUser = async (Guid: string) => {
+    debugger
+    ApiService.setHeader();
+    return await ApiService.get(`/User/GetUser/${Guid}`)
+      .then(({ data }) => {
+        user.value = data;
+      })
+      .catch(({ response }) => {
+        setError(response.data.errors);
+      });
+  };
   function login(credentials: User) {
     return ApiService.post("/auth/login", credentials)
       .then(({ data }) => {
-        setAuth(data);
+        setAuth(data.accessToken);
+        JwtService.saveToken(data.accessToken);
       })
       .catch(({ response }) => {
         setError(response.data.errors);
@@ -111,15 +130,16 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   function verifyAuth() {
-    //debugger
+    //   debugger
     if (JwtService.getToken()) {
       ApiService.setHeader();
       ApiService.post("/auth/CheckValidtionToken", { Token: JwtService.getToken() })
         .then(({ data }) => {
           if (data.tokenISValid == false) {
             purgeAuth();
+          } else {
+            setAuth(JwtService.getToken());
           }
-          // setAuth(data);
         })
         .catch(({ response }) => {
           setError(response.data.errors);

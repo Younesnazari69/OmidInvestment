@@ -1,5 +1,5 @@
 <template>
-  <button @click="AddItem" class="btn btn-sm btn-primary ">
+  <button @click="AddItem" class="btn btn-sm btn-success ">
     <FlAddSquare />
   </button>
   <EasyDataTable v-model:server-options="serverOptions" :headers="headers" :items="items"
@@ -33,11 +33,15 @@ export default defineComponent({
     const router = useRouter();
     const store = useDataStore();
     const headers: Header[] = [
-      { text: "نام کامل", value: 'fullname', sortable: false },
-      { text: "نام", value: 'firstname', sortable: true },
-      { text: "نام خانوادگی", value: 'lastname', sortable: true },
-      { text: "عنوان شغلی", value: 'jobTitle', sortable: true },
-      { text: "پست الکترونیک", value: 'email', sortable: true },
+      { text: "نام شرکت", value: 'companyName', sortable: true },
+      { text: "شناسه ملی", value: 'nationalCode', sortable: true },
+      { text: "شرکت پدر", value: 'companyFather', sortable: true },
+      { text: "هلدینگ", value: 'holdingID', sortable: true },
+      { text: "نوع شرکت", value: 'companyType', sortable: true },
+      { text: "سطح شرکت", value: 'companyLevel', sortable: true },
+      { text: "وضعیت", value: 'companystatus', sortable: true },
+      { text: "نوع صنعت", value: 'industryType', sortable: true },
+      { text: "نوع بازار", value: 'marketType', sortable: true },
 
       { text: "عملیات", value: "operation" },
     ];
@@ -49,32 +53,32 @@ export default defineComponent({
       rowsPerPage: 5,
     });
 
-    const restApiUrl = async () => {
+    const FechData = async () => {
       debugger
       //const { page, rowsPerPage, sortBy, sortType } = serverOptions.value;
       loading.value = true;
-      return store.FechAllUsers(serverOptions.value).then(() => {
-        items.value = store.AllUsersData.AllUserList;
-        serverItemsLength.value = store.AllUsersData.serverTotalItemsLength;
+      return store.FechCompanys(serverOptions.value).then(() => {
+        items.value = store.CompanysData.CompanyList;
+        serverItemsLength.value = store.CompanysData.serverTotalItemsLength;
         loading.value = false;
       });
     };
     const deleteItem = (val: string) => {
-      return store.DeleteUser(val).then(() => {
-        restApiUrl();
+      return store.DeleteCompany(val).then(() => {
+        FechData();
       });
     };
 
     const editItem = (val: string) => {
-      router.push({ name: "EditUser" , params: { guid: val }});
+      router.push({ name: "CompanyForm" , params: { id: val }});
     };
     const AddItem = () => {
-      router.push({ name: "EditUser" });
+      router.push({ name: "CompanyForm" , params: { id: "null" }});
     };
 
     // initial load
-    restApiUrl();
-    watch(serverOptions, (value) => { restApiUrl(); }, { deep: true });
+    FechData();
+    watch(serverOptions, (value) => { FechData(); }, { deep: true });
 
     return {
       headers,

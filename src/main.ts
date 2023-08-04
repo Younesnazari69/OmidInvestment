@@ -2,6 +2,8 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { Tooltip } from "bootstrap";
 import App from "./App.vue";
+import "vue-search-select/dist/VueSearchSelect.css";
+
 /*
 TIP: To get started with clean router change path to @/router/clean.ts.
  */
@@ -36,5 +38,5 @@ app.use(i18n);
 app.directive("tooltip", (el) => {
   new Tooltip(el);
 });
-
+import "@/assets/CustomStyle.css";
 app.mount("#app");

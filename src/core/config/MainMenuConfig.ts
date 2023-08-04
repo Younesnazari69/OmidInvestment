@@ -1,3 +1,4 @@
+
 export interface MenuItem {
   heading?: string;
   sectionTitle?: string;
@@ -7,7 +8,6 @@ export interface MenuItem {
   bootstrapIcon?: string;
   sub?: Array<MenuItem>;
 }
-
 const MainMenuConfig: Array<MenuItem> = [
   {
     pages: [
@@ -34,35 +34,100 @@ const MainMenuConfig: Array<MenuItem> = [
         bootstrapIcon: "bi-archive",
         sub: [
           {
-            sectionTitle: "OccasionTypes",
-            route: "/OccasionTypes",
+            sectionTitle: "Region",
+            route: "/Region",
             sub: [
               {
-                heading: "OccasionTypeList",
-                route: "/crafted/pages/profile/overview",
+                heading: "RegionList",
+                route: "/Region/RegionList",
               },
               {
-                heading: "OccasionTypeForm",
-                route: "/crafted/pages/profile/projects",
+                heading: "RegionForm",
+                route: "/Region/RegionForm/null"
               }
             ],
           },
           {
-            sectionTitle: "OccasionImages",
-            route: "/OccasionImages",
+            sectionTitle: "Location",
+            route: "/Location",
             sub: [
               {
-                heading: "OccasionImageList",
-                route: "/crafted/pages/wizards/horizontal",
+                heading: "LocationList",
+                route: "/Location/LocationList",
               },
               {
-                heading: "OccasionImageForm",
-                route: "/crafted/pages/wizards/vertical",
+                heading: "LocationForm",
+                route: "/Location/LocationForm/null"
+              },
+            ],
+          },
+          {
+            sectionTitle: "Company",
+            route: "/Company",
+            sub: [
+              {
+                heading: "CompanyList",
+                route: "/Company/CompanyList",
+              },
+              {
+                heading: "CompanyForm",
+                route: "/Company/CompanyForm/null"
               },
             ],
           },
         ],
       },
+      {
+        sectionTitle: "Forms",
+        route: "/Forms",
+        keenthemesIcon: "element-plus",
+        bootstrapIcon: "bi-archive",
+        sub: [
+          {
+            sectionTitle: "EquipmentAndMachinery",
+            route: "/EquipmentAndMachinery",
+            sub: [
+              {
+                heading: "EquipmentAndMachineryList",
+                route: "/EquipmentAndMachinery/EquipmentAndMachineryList",
+              },
+              {
+                heading: "EquipmentAndMachineryForm",
+                route: "/EquipmentAndMachinery/EquipmentAndMachineryForm/null"
+              }
+            ],
+          },
+          {
+            sectionTitle: "RealEstate",
+            route: "/RealEstate",
+            sub: [
+              {
+                heading: "RealEstateList",
+                route: "/RealEstate/RealEstateList",
+              },
+              {
+                heading: "RealEstateForm",
+                route: "/RealEstate/RealEstateForm/null"
+              },
+            ],
+          },
+          {
+            sectionTitle: "Vehicle",
+            route: "/Vehicle",
+            sub: [
+              {
+                heading: "VehicleList",
+                route: "/Vehicle/VehicleList",
+              },
+              {
+                heading: "VehicleForm",
+                route: "/Vehicle/VehicleForm/null"
+              },
+            ],
+          },
+        ],
+      },
+      
       {
         sectionTitle: "Posts",
         route: "/Posts",
@@ -76,18 +141,18 @@ const MainMenuConfig: Array<MenuItem> = [
         ],
       },
       {
-        sectionTitle: "PublicUsers",
-        route: "/PublicUsers",
+        sectionTitle: "User",
+        route: "/User",
         keenthemesIcon: "profile-circle",
         bootstrapIcon: "bi-person",
         sub: [
           {
-            heading: "PublicUserList",
-            route: "/PublicUsers/PublicUserList",
+            heading: "UserList",
+            route: "/User/UserList",
           }, 
           {
-            heading: "EditUser",
-            route: "/PublicUsers/EditUser/null"
+            heading: "UserForm",
+            route: "/User/UserForm/null"
           }
         ],
       },

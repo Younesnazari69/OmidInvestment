@@ -28,7 +28,6 @@ export default defineComponent({
        * remove this to use static config (@/core/config/DefaultLayoutConfig.ts)
        */
       configStore.overrideLayoutConfig();
-
       /**
        *  Sets a mode from configuration
        */
