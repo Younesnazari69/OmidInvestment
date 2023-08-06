@@ -38,8 +38,7 @@
             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
         </button>
-        <button tabindex="3" type="button" @click="ReternToList"
-          class="btn btn-lg btn-primary w-25 mb-5">
+        <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-primary w-25 mb-5">
           <span class="indicator-label"> بازگشت به لیست </span>
         </button>
         <!--end::Submit button-->
@@ -58,7 +57,6 @@ import { useDataStore } from "@/stores/Data";
 
 // import { useAuthStore, type User } from "@/stores/auth";
 import { useRouter, useRoute } from "vue-router";
-import { PasswordMeterComponent } from "@/assets/ts/components";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 
@@ -73,7 +71,7 @@ export default defineComponent({
     const store = useDataStore();
     const router = useRouter();
     const route = useRoute()
-    const RegionData = ref<object>({});
+    const RegionData = ref<any|object>({});
     const submitButton = ref<HTMLButtonElement | null>(null);
 
     //Create form validation object
@@ -85,17 +83,12 @@ export default defineComponent({
     onBeforeMount(() => {
       const id = route.params.id;
       debugger
-      if(id!="null"){
+      if (id != "null") {
         store.FechRegion(id).then(() => {
-        debugger;
-        RegionData.value = store.RegionData;
-      });
+          debugger;
+          RegionData.value = store.RegionData;
+        });
       }
-    });
-    onMounted(() => {
-      nextTick(() => {
-        PasswordMeterComponent.bootstrap();
-      });
     });
     //Form submit function
     const onSubmitLogin = async (values: any) => {
@@ -115,32 +108,28 @@ export default defineComponent({
         Swal.fire({
           text: "ذخیره اطلاعات انجام شد",
           icon: "success",
+          showCancelButton: true,
           buttonsStyling: false,
-          confirmButtonText: "Ok, got it!",
+          confirmButtonText: "ثبت جدید",
+          cancelButtonText: "بازگشت به لیست",
           heightAuto: false,
           customClass: {
+            cancelButton: "btn fw-semobold btn-light-warning",
             confirmButton: "btn fw-semobold btn-light-primary",
           },
-        }).then(() => {
-          router.push({ name: "RegionList" });
-          // Go to page after successfully login
-          // Swal.fire({
-          //   text: "خطا در ذخیره اطلاعات",
-          //   icon: "success",
-          //   buttonsStyling: false,
-          //   confirmButtonText: "Ok, got it!",
-          //   heightAuto: false,
-          //   customClass: {
-          //     confirmButton: "btn fw-semobold btn-light-primary",
-          //   },
-          // })
-        });
+        })
+          .then((result) => {
+            if (result.isConfirmed) {
+            } else if (result.isDismissed) {
+              router.push({ name: "RegionList" });
+            }
+          })
       } else {
         Swal.fire({
           text: error[0] as string,
           icon: "error",
           buttonsStyling: false,
-          confirmButtonText: "Try again!",
+          confirmButtonText: "تلاش مجدد",
           heightAuto: false,
           customClass: {
             confirmButton: "btn fw-semobold btn-light-danger",
@@ -155,9 +144,9 @@ export default defineComponent({
       // eslint-disable-next-line
       submitButton.value!.disabled = false;
 
-    };  
-        const ReternToList = () => {
-      router.push({ name: "RegionList"});
+    };
+    const ReternToList = () => {
+      router.push({ name: "RegionList" });
     };
     return {
       onSubmitLogin,

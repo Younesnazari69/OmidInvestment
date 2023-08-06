@@ -28,6 +28,7 @@ import { useRouter } from "vue-router";
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import { BsTrash, AkEdit, FlAddSquare,PhThinFiles  } from '@kalimahapps/vue-icons';
 export default defineComponent({
+  name: "EquipmentAndMachineryList",
   components: {
     BsTrash,
     AkEdit,
@@ -52,7 +53,7 @@ export default defineComponent({
     const serverItemsLength = ref<Number>(0);
     const serverOptions = ref<ServerOptions>({
       page: 1,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
     });
 
 

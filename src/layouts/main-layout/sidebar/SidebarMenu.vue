@@ -31,8 +31,8 @@
                 </router-link>
               </div>
             </template>
-            <!-- (UserCompanyID==1 && menuItem.sectionTitle=='Forms')&& -->
-            <div v-if=" menuItem.sectionTitle && menuItem.route" :class="{ show: hasActiveChildren(menuItem.route) }"
+            
+            <div v-if="((Usergroups==1) || (Usergroups==2 && menuItem.sectionTitle=='Forms')) &&  menuItem.sectionTitle && menuItem.route" :class="{ show: hasActiveChildren(menuItem.route) }"
               class="menu-item menu-accordion" data-kt-menu-sub="accordion" data-kt-menu-trigger="click">
               <span class="menu-link">
                 <span v-if="menuItem.keenthemesIcon || menuItem.bootstrapIcon" class="menu-icon">
@@ -176,12 +176,14 @@ export default defineComponent({
   components: {},
   setup() {
     const AuthStore = useAuthStore();
-    const UserCompanyID = ref();
+    const Usergroups = ref();
     const { t, te } = useI18n();
     const route = useRoute();
     const scrollElRef = ref<null | HTMLElement>(null);
-      console.log(AuthStore.user);
-      UserCompanyID.value = AuthStore.user.CompanyID;
+    onBeforeMount(()=>{
+      console.log(AuthStore.user.groups);      
+      Usergroups.value = AuthStore.user.groups!=null?  AuthStore.user.groups[0].id:0;
+    })
     onMounted(() => {
       if (scrollElRef.value) {
         scrollElRef.value.scrollTop = 0;
@@ -206,7 +208,7 @@ export default defineComponent({
       sidebarMenuIcons,
       translate,
       getAssetPath,
-      UserCompanyID,
+      Usergroups,
     };
   },
 });

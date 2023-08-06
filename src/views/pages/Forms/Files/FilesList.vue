@@ -1,4 +1,9 @@
 <template>
+  <div class="card-toolbar">
+    <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-warning">
+      <span class="indicator-label"> بازگشت </span>
+    </button>
+  </div>
   <EasyDataTable v-model:server-options="serverOptions" :headers="headers" :items="items"
     :server-items-length="serverItemsLength" :loading="loading" buttons-pagination>
     <template #item-content="item">
@@ -45,13 +50,12 @@ export default defineComponent({
     const serverItemsLength = ref<Number>(0);
     const serverOptions = ref<ServerOptions>({
       page: 1,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
     });
     const id = route.params.id;
     const type = route.params.type;
 
     const FechData = async () => {
-      debugger
       //const { page, rowsPerPage, sortBy, sortType } = serverOptions.value;
       loading.value = true;
       return store.FechFiles(serverOptions.value, type, id).then(() => {
@@ -65,7 +69,9 @@ export default defineComponent({
         FechData();
       });
     };
-
+    const ReternToList = () => {
+      router.go(-1)
+    };
     // const editItem = (val: string) => {
     //   router.push({ name: "FilesForm" , params: { id: val }});
     // };
@@ -83,7 +89,8 @@ export default defineComponent({
       serverOptions,
       serverItemsLength,
       loading,
-       deleteItem,
+      deleteItem,
+      ReternToList
       // editItem, AddItem
     };
   },

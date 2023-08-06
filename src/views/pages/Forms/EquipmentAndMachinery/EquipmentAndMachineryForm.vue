@@ -6,7 +6,7 @@
       <div class="card shadow-sm">
         <div class="card-header">
           <h3 class="card-title">
-            ورود به سیستم
+            ماشین آلات و تجهیزات
           </h3>
           <div class="card-toolbar">
             <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-warning">
@@ -45,7 +45,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">استان</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="LocationList"
+              <model-select class="form-control form-control-lg form-control-solid" :options="ProvinceList"
                 v-model="Province">
               </model-select>
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="provinceID"
@@ -58,8 +58,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شهر</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="LocationList"
-                v-model="City">
+              <model-select class="form-control form-control-lg form-control-solid" :options="CityList" v-model="City">
               </model-select>
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="cityID"
                 autocomplete="off" v-model="City.value" hidden="true" />
@@ -131,13 +130,13 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">صورت ریز موجودی قطعات یدکی</label>
-              <input class="form-control form-control-lg form-control-solid" type="file" @change="InventoryOfSparePartsFiles"
-                multiple="true" />
+              <input class="form-control form-control-lg form-control-solid" type="file"
+                @change="InventoryOfSparePartsFiles" multiple="true" />
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">کلیه مجوزها و پروانه های اخذ شده</label>
-              <input class="form-control form-control-lg form-control-solid" type="file" @change="AllLicensesAndPermitsObtainedFiles"
-                multiple="true" />
+              <input class="form-control form-control-lg form-control-solid" type="file"
+                @change="AllLicensesAndPermitsObtainedFiles" multiple="true" />
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تصویر کلیه قبوض</label>
@@ -174,12 +173,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, nextTick, onMounted, onBeforeMount } from "vue";
+import { defineComponent, ref, nextTick, onMounted, onBeforeMount, watch } from "vue";
 import { ErrorMessage, Field, Form as VForm } from "vee-validate";
 import { useDataStore } from "@/stores/Data";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter, useRoute } from "vue-router";
-import { PasswordMeterComponent } from "@/assets/ts/components";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { ModelSelect } from "vue-search-select"
 import type { ServerOptions } from "vue3-easy-data-table";
@@ -199,38 +197,31 @@ export default defineComponent({
     const AuthStore = useAuthStore();
     const router = useRouter();
     const route = useRoute()
-    const EquipmentAndMachineryData = ref<object>({});
-    const Province = ref<object>({
-      value: null,
-      text: "",
-    });
-    const City = ref<object>({
-      value: null,
-      text: "",
-    });
-    const Company = ref<object>({
-      value: null,
-      text: "",
-    });
-    const UploudFiles = ref([]);
-    const LocationList = ref([]);
+    const EquipmentAndMachineryData = ref<any|object>({});
+    const Province = ref<any|object>({ value: null, text: "", });
+    const City = ref<any|object>({ value: null, text: "", });
+    const Company = ref<any|object>({ value: null, text: "", });
+    const UploudFiles = ref<any|object>([]);
+    const ProvinceList = ref([]);
+    const CityList = ref([]);
     const CompanyList = ref([]);
-    const User = ref({});
+    const User = ref<any|object>({});
     const submitButton = ref<HTMLButtonElement | null>(null);
 
     //Create form validation object
     const EquipmentAndMachineryModel = Yup.object().shape({
       id: Yup.number().label("id"),
-      companyID: Yup.string().required().label("companyID"),
-      provinceID: Yup.number().label("provinceID"),
-      cityID: Yup.number().label("cityID"),
-      inspection: Yup.string().required().label("inspection"),
+      companyID: Yup.string().required("انتخاب شرکت الزامیست").label("companyID"),
+      provinceID: Yup.number().required("انتخاب استان الزامیست").label("provinceID"),
+      cityID: Yup.number().required("انتخاب شهر الزامیست").label("cityID"),
+      inspection: Yup.string().required("مورد ارزیابی_تجهیزات ماشین آلات / تاسیسات الزامیست").label("inspection"),
       municipalArea: Yup.string().label("municipalArea").nullable(),
       regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),
-      representativeMobile: Yup.number().label("representativeMobile").nullable(),
-      companyRepresentative_owner_ToVisit: Yup.string().label("companyRepresentative_owner_ToVisit").nullable(),
-      address: Yup.string().label("address").nullable(),
+      representativeMobile: Yup.string().matches(/^(\+98|0)?9\d{9}$/, "تلفن همراه صحیح نیست").required("تلفن همراه نماینده الزامیست").label("representativeMobile"),
+      companyRepresentative_owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_owner_ToVisit"),
+      address: Yup.string().label("address").required("آدرس الزامیست"),
     });
+
     onBeforeMount(() => {
       const id = route.params.id;
       if (id != "null") {
@@ -240,28 +231,24 @@ export default defineComponent({
       }
       User.value = AuthStore.user;
       Company.value = {
-        value: User.value.CompanyID,
-        text: User.value.Company,
+        value: User.value.companyID,
+        text: User.value.company,
       };
       const serverOptions = ref<ServerOptions>({
         page: 0,
         rowsPerPage: 0,
       });
       store.FechLocations(serverOptions).then(() => {
-        LocationList.value = store.LocationsData.LocationList;
+        ProvinceList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 1; });
+        CityList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 2; });
       });
       store.FechCompanys(serverOptions).then(() => {
         CompanyList.value = store.CompanysData.CompanyList;
       });
     });
-    onMounted(() => {
-      nextTick(() => {
-        PasswordMeterComponent.bootstrap();
-      });
-    });
-    //Form submit function
+
+    //#region onSubmit
     const onSubmitLogin = async (values: any) => {
-      debugger
       // Clear existing errors
       if (submitButton.value) {
         // eslint-disable-next-line
@@ -269,7 +256,6 @@ export default defineComponent({
         // Activate indicator
         submitButton.value.setAttribute("data-kt-indicator", "on");
       }
-      debugger
       values.Files = UploudFiles.value;
       //values.append('file', UploudFile);
       await store.UpdateEquipmentAndMachinery(values);
@@ -279,22 +265,28 @@ export default defineComponent({
         Swal.fire({
           text: "ذخیره اطلاعات انجام شد",
           icon: "success",
+          showCancelButton: true,
           buttonsStyling: false,
-          confirmButtonText: "Ok, got it!",
+          confirmButtonText: "ثبت جدید",
+          cancelButtonText: "بازگشت به لیست",
           heightAuto: false,
           customClass: {
+            cancelButton: "btn fw-semobold btn-light-warning",
             confirmButton: "btn fw-semobold btn-light-primary",
           },
-        }).then(() => {
-          router.push({ name: "EquipmentAndMachineryList" });
-
-        });
+        })
+          .then((result) => {
+            if (result.isConfirmed) {
+            } else if (result.isDismissed) {
+              router.push({ name: "EquipmentAndMachineryList" });
+            }
+          })
       } else {
         Swal.fire({
           text: error[0] as string,
           icon: "error",
           buttonsStyling: false,
-          confirmButtonText: "Try again!",
+          confirmButtonText: "تلاش مجدد",
           heightAuto: false,
           customClass: {
             confirmButton: "btn fw-semobold btn-light-danger",
@@ -310,26 +302,32 @@ export default defineComponent({
       submitButton.value!.disabled = false;
 
     };
+    //#endregion
+    watch(Province, () => {
+      CityList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 2 && obj.parentId == Province.value.value; });
+    });
+
     const ReternToList = () => {
       router.push({ name: "EquipmentAndMachineryList" });
     };
+    //#region Files 
     const StatementOfAssetsFiles = (event) => {
       debugger
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file:any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
             FormFileType: "صورت ریز دارایی های ثابت شرکت",
-            FormFileTypeId:1,
+            FormFileTypeId: 1,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
     const LocationCodeFiles = (event) => {
@@ -337,18 +335,18 @@ export default defineComponent({
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file :any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
-            FormFileType:"کد محل استقرار ، مرکز هزینه ، کد مرکز هزینه",
-            FormFileTypeId:2,
+            FormFileType: "کد محل استقرار ، مرکز هزینه ، کد مرکز هزینه",
+            FormFileTypeId: 2,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
     const InventoryOfSparePartsFiles = (event) => {
@@ -356,18 +354,18 @@ export default defineComponent({
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file :any= item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
-            FormFileType:"صورت ریز موجودی قطعات یدکی",
-            FormFileTypeId:3,
+            FormFileType: "صورت ریز موجودی قطعات یدکی",
+            FormFileTypeId: 3,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
     const AllLicensesAndPermitsObtainedFiles = (event) => {
@@ -375,18 +373,18 @@ export default defineComponent({
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
-            FormFileType:"کلیه مجوزها و پروانه های اخذ شده",
-            FormFileTypeId:4,
+            FormFileType: "کلیه مجوزها و پروانه های اخذ شده",
+            FormFileTypeId: 4,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
     const ImageOfAllBillsFiles = (event) => {
@@ -394,27 +392,29 @@ export default defineComponent({
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file:any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
-            FormFileType:"تصویر کلیه قبوض",
-            FormFileTypeId:5,
+            FormFileType: "تصویر کلیه قبوض",
+            FormFileTypeId: 5,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
+    //#endregion
     return {
       onSubmitLogin,
       EquipmentAndMachineryModel,
       submitButton,
       EquipmentAndMachineryData,
       ReternToList,
-      LocationList,
+      ProvinceList,
+      CityList,
       CompanyList,
       Province,
       City,

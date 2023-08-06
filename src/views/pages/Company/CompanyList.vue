@@ -6,10 +6,10 @@
     :server-items-length="serverItemsLength" :loading="loading" buttons-pagination>
     <template #item-operation="item">
       <div class="operation-wrapper">
-        <button @click="deleteItem(item.guid)" class="btn btn-sm btn-danger ">
+        <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
           <BsTrash />
         </button>
-        <button @click="editItem(item.guid)" class="btn btn-sm btn-primary">
+        <button @click="editItem(item.id)" class="btn btn-sm btn-primary">
           <AkEdit />
         </button>
       </div>
@@ -24,6 +24,7 @@ import { useRouter } from "vue-router";
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import { BsTrash, AkEdit, FlAddSquare } from '@kalimahapps/vue-icons';
 export default defineComponent({
+  name: "CompanyList",
   components: {
     BsTrash,
     AkEdit,
@@ -50,7 +51,7 @@ export default defineComponent({
     const serverItemsLength = ref<Number>(0);
     const serverOptions = ref<ServerOptions>({
       page: 1,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
     });
 
     const FechData = async () => {

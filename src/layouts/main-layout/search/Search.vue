@@ -75,8 +75,7 @@
             <!--end::Reset-->
 
             <!--begin::Toolbar-->
-            <div class="position-absolute top-50 end-0 translate-middle-y">
-              <!--begin::Preferences toggle-->
+            <!-- <div class="position-absolute top-50 end-0 translate-middle-y">
               <div
                 v-if="!search && !loading"
                 @click="state = 'preferences'"
@@ -86,9 +85,7 @@
               >
                 <KTIcon icon-name="setting-2" icon-class="fs-1" />
               </div>
-              <!--end::Preferences toggle-->
 
-              <!--begin::Advanced search toggle-->
               <div
                 v-if="!search && !loading"
                 @click="state = 'advanced-options'"
@@ -98,8 +95,7 @@
               >
                 <KTIcon icon-name="down" icon-class="fs-2" />
               </div>
-              <!--end::Advanced search toggle-->
-            </div>
+            </div> -->
             <!--end::Toolbar-->
           </form>
           <!--end::Form-->
@@ -107,9 +103,9 @@
           <!--begin::Separator-->
           <div class="separator border-gray-200 mb-6"></div>
           <!--end::Separator-->
-          <Results v-if="state === 'results'"></Results>
-          <PartialMain v-else-if="state === 'main'"></PartialMain>
-          <Empty v-else-if="state === 'empty'"></Empty>
+          <!-- <Results v-if="state === 'results'"></Results> -->
+          <!-- <PartialMain v-else-if="state === 'main'"></PartialMain> -->
+          <!-- <Empty v-else-if="state === 'empty'"></Empty> -->
         </div>
         <!--end::Wrapper-->
 
@@ -449,7 +445,7 @@
 import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent, ref } from "vue";
 import Results from "@/layouts/main-layout/search/partials/Results.vue";
-import PartialMain from "@/layouts/main-layout/search/partials/Main.vue";
+//import PartialMain from "@/layouts/main-layout/search/partials/Main.vue";
 import Empty from "@/layouts/main-layout/search/partials/Empty.vue";
 import MenuComponent from "@/components/menu/MenuComponent.vue";
 
@@ -457,7 +453,7 @@ export default defineComponent({
   name: "kt-search",
   components: {
     Results,
-    PartialMain,
+  //  PartialMain,
     Empty,
     MenuComponent,
   },

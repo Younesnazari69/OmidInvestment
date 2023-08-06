@@ -38,6 +38,12 @@ export const useDataStore = defineStore("Data", () => {
   const LocationsData = ref<any>({});
   const LocationData = ref<any>({});
   const CompanysData = ref<any>({});
+  const CompanyLevelsData = ref<any>({});
+  const CompanystatusData = ref<any>({});
+  const CompanyTypesData = ref<any>({});
+  const IndustryTypesData = ref<any>({});
+  const MarketTypesData = ref<any>({});
+
   const CompanyData = ref<any>({});
   const EquipmentAndMachinerysData = ref<any>({});
   const EquipmentAndMachineryData = ref<any>({});
@@ -64,8 +70,8 @@ export const useDataStore = defineStore("Data", () => {
     debugger
     RegionsData.value = {
       RegionList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.userCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
   }
   function SetRegion(data: any) {
@@ -74,7 +80,7 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
 
-  const FechRegions = async (serverOptions: ServerOptions) => {
+  const FechRegions = async (serverOptions:any| ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/BaseInfo/GetRegions/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -94,7 +100,7 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
-  const FechRegion = async (id: number) => {
+  const FechRegion = async (id: string | string[]) => {
     debugger
     return await ApiService.get(`/BaseInfo/GetRegion/${id}`)
       .then(({ data }) => {
@@ -132,8 +138,8 @@ export const useDataStore = defineStore("Data", () => {
     debugger
     AllUsersData.value = {
       AllUserList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.userCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
     errors.value = data.errors;
   }
@@ -162,7 +168,7 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
-  const FechUser = async (Guid: string) => {
+  const FechUser = async (Guid: string | string[]) => {
     debugger
     return await ApiService.get(`/User/GetUser/${Guid}`)
       .then(({ data }) => {
@@ -200,8 +206,8 @@ export const useDataStore = defineStore("Data", () => {
     debugger
     LocationsData.value = {
       LocationList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.LocationCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
     errors.value = data.errors;
   }
@@ -210,7 +216,7 @@ export const useDataStore = defineStore("Data", () => {
     LocationData.value = data.data;
     errors.value = data.errors;
   }
-  const FechLocations = async (serverOptions: ServerOptions) => {
+  const FechLocations = async (serverOptions:any| ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/BaseInfo/GetLocations/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -230,7 +236,7 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
-  const FechLocation = async (id: string) => {
+  const FechLocation = async (id: string | string[]) => {
     debugger
     return await ApiService.get(`/BaseInfo/GetLocation/${id}`)
       .then(({ data }) => {
@@ -265,20 +271,18 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region Company 
   function SetCompanyList(data: any) {
-    debugger
     CompanysData.value = {
       CompanyList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.CompanyCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
     errors.value = data.errors;
   }
   function SetCompany(data: any) {
-    debugger
     CompanyData.value = data.data;
     errors.value = data.errors;
   }
-  const FechCompanys = async (serverOptions: ServerOptions) => {
+  const FechCompanys = async (serverOptions: any) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Company/GetCompanys/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -298,7 +302,7 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
-  const FechCompany = async (id: string) => {
+  const FechCompany = async (id: string | string[]) => {
     debugger
     return await ApiService.get(`/Company/GetCompany/${id}`)
       .then(({ data }) => {
@@ -330,14 +334,158 @@ export const useDataStore = defineStore("Data", () => {
         setError(response.data.errors);
       });
   }
+
+
+  function SetCompanyLevelList(data: any) {
+    CompanyLevelsData.value = {
+      CompanyLevelList: data.data,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
+    };
+    errors.value = data.errors;
+  }
+  const FechCompanyLevels = async (serverOptions: any|ServerOptions) => {
+    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
+    if (sortBy && sortType) {
+      return await ApiService.get(`/Company/GetCompanyLevels/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+        .then(({ data }) => {
+          SetCompanyLevelList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    } else {
+      return await ApiService.get(`/Company/GetCompanyLevels/${page}&${rowsPerPage}&${" "}&${" "}`)
+        .then(({ data }) => {
+          SetCompanyLevelList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    }
+  };
+
+  function SetCompanystatusList(data: any) {
+    CompanystatusData.value = {
+      CompanystatusList: data.data,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
+    };
+    errors.value = data.errors;
+  }
+  const FechCompanystatus = async (serverOptions: any|ServerOptions) => {
+    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
+    if (sortBy && sortType) {
+      return await ApiService.get(`/Company/GetCompanystatus/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+        .then(({ data }) => {
+          SetCompanystatusList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    } else {
+      return await ApiService.get(`/Company/GetCompanystatus/${page}&${rowsPerPage}&${" "}&${" "}`)
+        .then(({ data }) => {
+          SetCompanystatusList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    }
+  };
+  function SetCompanyTypesList(data: any) {
+    CompanyTypesData.value = {
+      CompanyTypeList: data.data,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
+    };
+    errors.value = data.errors;
+  }
+  const FechCompanyTypes = async (serverOptions: any|ServerOptions) => {
+    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
+    if (sortBy && sortType) {
+      return await ApiService.get(`/Company/GetCompanyTypes/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+        .then(({ data }) => {
+          SetCompanyTypesList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    } else {
+      return await ApiService.get(`/Company/GetCompanyTypes/${page}&${rowsPerPage}&${" "}&${" "}`)
+        .then(({ data }) => {
+          SetCompanyTypesList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    }
+  };
+
+  function SetIndustryTypesList(data: any) {
+    IndustryTypesData.value = {
+      IndustryTypeList: data.data,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
+    };
+    errors.value = data.errors;
+  }
+  const FechIndustryTypes = async (serverOptions: any|ServerOptions) => {
+    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
+    if (sortBy && sortType) {
+      return await ApiService.get(`/Company/GetIndustryTypes/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+        .then(({ data }) => {
+          SetIndustryTypesList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    } else {
+      return await ApiService.get(`/Company/GetIndustryTypes/${page}&${rowsPerPage}&${" "}&${" "}`)
+        .then(({ data }) => {
+          SetIndustryTypesList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    }
+  };
+  function SetMarketTypesList(data: any) {
+    MarketTypesData.value = {
+      MarketTypeList: data.data,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
+    };
+    errors.value = data.errors;
+  }
+  const FechMarketTypes = async (serverOptions:any| ServerOptions) => {
+    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
+    if (sortBy && sortType) {
+      return await ApiService.get(`/Company/GetMarketTypes/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+        .then(({ data }) => {
+          SetMarketTypesList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    } else {
+      return await ApiService.get(`/Company/GetMarketTypes/${page}&${rowsPerPage}&${" "}&${" "}`)
+        .then(({ data }) => {
+          SetMarketTypesList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    }
+  };
   //#endregion
   //#region EquipmentAndMachinery 
   function SetEquipmentAndMachineryList(data: any) {
     debugger
     EquipmentAndMachinerysData.value = {
       EquipmentAndMachineryList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.EquipmentAndMachineryCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
     errors.value = data.errors;
   }
@@ -366,7 +514,7 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
-  const FechEquipmentAndMachinery = async (id: string) => {
+  const FechEquipmentAndMachinery = async (id: string | string[]) => {
     debugger
     return await ApiService.get(`/Forms/GetEquipmentAndMachinery/${id}`)
       .then(({ data }) => {
@@ -404,8 +552,8 @@ export const useDataStore = defineStore("Data", () => {
     debugger
     RealEstatesData.value = {
       RealEstateList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.RealEstateCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
     errors.value = data.errors;
   }
@@ -434,7 +582,7 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
-  const FechRealEstate = async (id: string) => {
+  const FechRealEstate = async (id: string | string[]) => {
     debugger
     return await ApiService.get(`/Forms/GetRealEstate/${id}`)
       .then(({ data }) => {
@@ -472,8 +620,8 @@ export const useDataStore = defineStore("Data", () => {
     debugger
     VehiclesData.value = {
       VehicleList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.VehicleCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
     errors.value = data.errors;
   }
@@ -503,7 +651,7 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
-  const FechVehicle = async (id: string) => {
+  const FechVehicle = async (id: string | string[]) => {
     debugger
     return await ApiService.get(`/Forms/GetVehicle/${id}`)
       .then(({ data }) => {
@@ -542,8 +690,8 @@ export const useDataStore = defineStore("Data", () => {
     debugger
     FilesData.value = {
       FilesList: data.data,
-      serverCurrentPageItems: data.Page,
-      serverTotalItemsLength: data.FilesCount,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
     };
     errors.value = data.errors;
   }
@@ -606,6 +754,16 @@ export const useDataStore = defineStore("Data", () => {
     DeleteCompany,
     CompanysData,
     CompanyData,
+    FechCompanyLevels,
+    FechCompanystatus,
+    FechCompanyTypes,
+    FechIndustryTypes,
+    FechMarketTypes,
+    CompanyLevelsData,
+    CompanystatusData,
+    CompanyTypesData,
+    IndustryTypesData,
+    MarketTypesData,
     FechEquipmentAndMachinerys,
     FechEquipmentAndMachinery,
     UpdateEquipmentAndMachinery,

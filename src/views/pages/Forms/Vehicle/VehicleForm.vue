@@ -1,12 +1,12 @@
 <template>
   <!--begin::Wrapper-->
   <div class="w-lg p-5">
-    <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin"
-      :validation-schema="VehicleModel" :initial-values="VehicleData">
+    <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin" :validation-schema="VehicleModel"
+      :initial-values="VehicleData">
       <div class="card shadow-sm">
         <div class="card-header">
           <h3 class="card-title">
-            ورود به سیستم
+            وسایل نقلیه
           </h3>
           <div class="card-toolbar">
             <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-warning">
@@ -34,9 +34,9 @@
               </div>
             </div>
             <div class="col-xl-4">
-              <label class="form-label fw-bold text-dark fs-6">مالک  </label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
-                name="ownerName" autocomplete="off" />
+              <label class="form-label fw-bold text-dark fs-6">مالک </label>
+              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="ownerName"
+                autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
                   <ErrorMessage name="ownerName" />
@@ -55,7 +55,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">استان</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="LocationList"
+              <model-select class="form-control form-control-lg form-control-solid" :options="ProvinceList"
                 v-model="Province">
               </model-select>
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="provinceID"
@@ -68,8 +68,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شهر</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="LocationList"
-                v-model="City">
+              <model-select class="form-control form-control-lg form-control-solid" :options="CityList" v-model="City">
               </model-select>
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="cityID"
                 autocomplete="off" v-model="City.value" hidden="true" />
@@ -101,7 +100,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">پلاک انتظامی</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="ایران48 279ع17"
                 name="policeLicensePlate" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -111,7 +110,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تلفن همراه نماینده</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="09121111111"
                 name="representativeMobile" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -140,9 +139,9 @@
               </div>
             </div>
             <div class="col-xl-4">
-              <label class="form-label fw-bold text-dark fs-6">  اصل سند مالکیت</label>
-              <input class="form-control form-control-lg form-control-solid" type="file" placeholder="انتخاب کنید" @change="OriginalTitleDeedFiles"
-                multiple="true" />
+              <label class="form-label fw-bold text-dark fs-6"> اصل سند مالکیت</label>
+              <input class="form-control form-control-lg form-control-solid" type="file" placeholder="انتخاب کنید"
+                @change="OriginalTitleDeedFiles" multiple="true" />
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">برگ سبز </label>
@@ -183,18 +182,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, nextTick, onMounted, onBeforeMount } from "vue";
+import { defineComponent, ref, nextTick, onMounted, onBeforeMount, watch } from "vue";
 import { ErrorMessage, Field, Form as VForm } from "vee-validate";
 import { useDataStore } from "@/stores/Data";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter, useRoute } from "vue-router";
-import { PasswordMeterComponent } from "@/assets/ts/components";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { ModelSelect } from "vue-search-select"
 import type { ServerOptions } from "vue3-easy-data-table";
-
 import * as Yup from "yup";
-
 export default defineComponent({
   name: "VehicleForm",
   components: {
@@ -208,39 +204,32 @@ export default defineComponent({
     const AuthStore = useAuthStore();
     const router = useRouter();
     const route = useRoute()
-    const VehicleData = ref<object>({});
-    const Province = ref<object>({
-      value: null,
-      text: "",
-    });
-    const City = ref<object>({
-      value: null,
-      text: "",
-    });
-    const Company = ref<object>({
-      value: null,
-      text: "",
-    });
-    const UploudFiles = ref([]);
-    const LocationList = ref([]);
+    const VehicleData = ref<any|object>({});
+    const UploudFiles = ref<any|object>([]);
+    const ProvinceList = ref([]);
+    const CityList = ref([]);
     const CompanyList = ref([]);
-    const User = ref({});
+    const User = ref<any|object>({});
     const submitButton = ref<HTMLButtonElement | null>(null);
+    const Province = ref<any|object>({ value: null, text: "", });
+    const City = ref<any|object>({ value: null, text: "", });
+    const Company = ref<any|object>({ value: null, text: "", });
 
     //Create form validation object
     const VehicleModel = Yup.object().shape({
       id: Yup.number().label("id"),
-      companyID: Yup.string().required().label("companyID"),
-      provinceID: Yup.number().label("provinceID"),
-      cityID: Yup.number().label("cityID"),
-      companyRepresentative_owner_ToVisit: Yup.string().label("companyRepresentative_owner_ToVisit").nullable(),
+      companyID: Yup.string().required("انتخاب شرکت الزامیست").label("companyID"),
+      provinceID: Yup.number().required("انتخاب استان الزامیست").label("provinceID"),
+      cityID: Yup.number().required("انتخاب شهر الزامیست").label("cityID"),
+      ownerName: Yup.string().required("نام مالک الزامیست").label("ownerName"),
+      representativeMobile: Yup.string().matches(/^(\+98|0)?9\d{9}$/, "تلفن همراه صحیح نیست").required("تلفن همراه نماینده الزامیست").label("representativeMobile"),
+      companyRepresentative_owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_owner_ToVisit"),
+      vehicleType: Yup.string().required("نوع وسیله نقلیه الزامیست").label("vehicleType"),
+      policeLicensePlate: Yup.string().required("شماره پلاک الزامیست").matches(/(ایران)?(\d{2})(?:-|,| )(\d{3})([ آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]{1})(\d{2})/, "شماره پلاک صحیح نیست").label("policeLicensePlate"),
+      address: Yup.string().required("آدرس الزامیست").label("address"),
       municipalArea: Yup.string().label("municipalArea").nullable(),
-      ownerName: Yup.string().required().label("ownerName"),
       regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),
-      representativeMobile: Yup.number().label("representativeMobile").nullable(),
-      vehicleType: Yup.string().required().label("vehicleType"),
-      policeLicensePlate: Yup.string().required().label("policeLicensePlate"),
-      address: Yup.string().label("address").nullable(),
+
     });
     onBeforeMount(() => {
       const id = route.params.id;
@@ -251,28 +240,23 @@ export default defineComponent({
       }
       User.value = AuthStore.user;
       Company.value = {
-        value: User.value.CompanyID,
-        text: User.value.Company,
+        value: User.value.companyID,
+        text: User.value.company,
       };
       const serverOptions = ref<ServerOptions>({
         page: 0,
         rowsPerPage: 0,
       });
       store.FechLocations(serverOptions).then(() => {
-        LocationList.value = store.LocationsData.LocationList;
+        ProvinceList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 1; });
+        CityList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 2; });
       });
       store.FechCompanys(serverOptions).then(() => {
         CompanyList.value = store.CompanysData.CompanyList;
       });
     });
-    onMounted(() => {
-      nextTick(() => {
-        PasswordMeterComponent.bootstrap();
-      });
-    });
     //Form submit function
     const onSubmitLogin = async (values: any) => {
-      debugger
       // Clear existing errors
       if (submitButton.value) {
         // eslint-disable-next-line
@@ -280,7 +264,6 @@ export default defineComponent({
         // Activate indicator
         submitButton.value.setAttribute("data-kt-indicator", "on");
       }
-      debugger
       values.Files = UploudFiles.value;
       //values.append('file', UploudFile);
       await store.UpdateVehicle(values);
@@ -290,22 +273,28 @@ export default defineComponent({
         Swal.fire({
           text: "ذخیره اطلاعات انجام شد",
           icon: "success",
+          showCancelButton: true,
           buttonsStyling: false,
-          confirmButtonText: "Ok, got it!",
+          confirmButtonText: "ثبت جدید",
+          cancelButtonText: "بازگشت به لیست",
           heightAuto: false,
           customClass: {
+            cancelButton: "btn fw-semobold btn-light-warning",
             confirmButton: "btn fw-semobold btn-light-primary",
           },
-        }).then(() => {
-          router.push({ name: "VehicleList" });
-
-        });
+        })
+          .then((result) => {
+            if (result.isConfirmed) {
+            } else if (result.isDismissed) {
+              router.push({ name: "VehicleList" });
+            }
+          })
       } else {
         Swal.fire({
           text: error[0] as string,
           icon: "error",
           buttonsStyling: false,
-          confirmButtonText: "Try again!",
+          confirmButtonText: "تلاش مجدد",
           heightAuto: false,
           customClass: {
             confirmButton: "btn fw-semobold btn-light-danger",
@@ -314,33 +303,36 @@ export default defineComponent({
           store.errors = {};
         });
       }
-
       //Deactivate indicator
       submitButton.value?.removeAttribute("data-kt-indicator");
       // eslint-disable-next-line
       submitButton.value!.disabled = false;
 
     };
+    watch(Province, () => {
+      CityList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 2 && obj.parentId == Province.value.value; });
+    });
     const ReternToList = () => {
       router.push({ name: "VehicleList" });
     };
+    //#region Files
     const OriginalTitleDeedFiles = (event) => {
       debugger
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file :any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
             FormFileType: "اصل سند مالکیت",
-            FormFileTypeId:1,
+            FormFileTypeId: 1,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
     const GreenLeafFiles = (event) => {
@@ -348,18 +340,18 @@ export default defineComponent({
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file :any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
-            FormFileType:"برگ سبز",
-            FormFileTypeId:2,
+            FormFileType: "برگ سبز",
+            FormFileTypeId: 2,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
     const CarCardFiles = (event) => {
@@ -367,28 +359,29 @@ export default defineComponent({
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file = item;
+        const file :any= item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
-            FormFileType:"کارت ماشین",
-            FormFileTypeId:3,
+            FormFileType: "کارت ماشین",
+            FormFileTypeId: 3,
           };
           UploudFiles.value.push(newfile);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file as Blob);
       });
     }
-
+    //#endregion 
     return {
       onSubmitLogin,
       VehicleModel,
       submitButton,
       VehicleData,
       ReternToList,
-      LocationList,
+      ProvinceList,
+      CityList,
       CompanyList,
       Province,
       City,

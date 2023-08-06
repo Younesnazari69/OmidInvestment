@@ -119,7 +119,6 @@ import { defineComponent, ref, nextTick, onMounted, onBeforeMount } from "vue";
 import { ErrorMessage, Field, Form as VForm } from "vee-validate";
 import { useDataStore } from "@/stores/Data";
 import { useRouter, useRoute } from "vue-router";
-import { PasswordMeterComponent } from "@/assets/ts/components";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { ModelSelect } from "vue-search-select"
 import type { ServerOptions } from "vue3-easy-data-table";
@@ -138,12 +137,12 @@ export default defineComponent({
     const store = useDataStore();
     const router = useRouter();
     const route = useRoute()
-    const LocationData = ref<object>({});
-    const parent = ref<object>({
+    const LocationData = ref<any|object>({});
+    const parent = ref<any|object>({
       value: null,
       text: "",
     });
-    const region = ref<object>({
+    const region = ref<any|object>({
       value: null,
       text: "",
     });
@@ -180,11 +179,6 @@ export default defineComponent({
         LocationList.value = store.LocationsData.LocationList;
       });
     });
-    onMounted(() => {
-      nextTick(() => {
-        PasswordMeterComponent.bootstrap();
-      });
-    });
     //Form submit function
     const onSubmitLogin = async (values: any) => {
       debugger
@@ -204,32 +198,28 @@ export default defineComponent({
         Swal.fire({
           text: "ذخیره اطلاعات انجام شد",
           icon: "success",
+          showCancelButton: true,
           buttonsStyling: false,
-          confirmButtonText: "Ok, got it!",
+          confirmButtonText: "ثبت جدید",
+          cancelButtonText: "بازگشت به لیست",
           heightAuto: false,
           customClass: {
+            cancelButton: "btn fw-semobold btn-light-warning",
             confirmButton: "btn fw-semobold btn-light-primary",
           },
-        }).then(() => {
-          router.push({ name: "LocationList" });
-          // Go to page after successfully login
-          // Swal.fire({
-          //   text: "خطا در ذخیره اطلاعات",
-          //   icon: "success",
-          //   buttonsStyling: false,
-          //   confirmButtonText: "Ok, got it!",
-          //   heightAuto: false,
-          //   customClass: {
-          //     confirmButton: "btn fw-semobold btn-light-primary",
-          //   },
-          // })
-        });
+        })
+          .then((result) => {
+            if (result.isConfirmed) {
+            } else if (result.isDismissed) {
+              router.push({ name: "LocationList" });
+            }
+          })
       } else {
         Swal.fire({
           text: error[0] as string,
           icon: "error",
           buttonsStyling: false,
-          confirmButtonText: "Try again!",
+          confirmButtonText: "تلاش مجدد",
           heightAuto: false,
           customClass: {
             confirmButton: "btn fw-semobold btn-light-danger",

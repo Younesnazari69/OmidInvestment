@@ -12,31 +12,31 @@ export interface User {
   remember: boolean;
 }
 export interface LoginUser {
-  AcceptAgreement: boolean;
-  ChangePasswordShow: boolean;
-  CompanyID: number;
-  Company: string;
-  Groups: object[];
-  Email: string;
-  Firstname: string;
-  Fullname: string;
-  JobTitle: string;
-  Lastname: string;
-  Mobile: string;
-  PCode: number;
-  Phone: string;
-  Guid:string;
+  acceptAgreement: boolean;
+  changePasswordShow: boolean;
+  companyID: number;
+  company: string;
+  groups: object[];
+  email: string;
+  firstname: string;
+  fullname: string;
+  jobTitle: string;
+  lastname: string;
+  mobile: string;
+  pCode: number;
+  phone: string;
+  guid: string;
 
 }
 
 export const useAuthStore = defineStore("auth", () => {
   const errors = ref({});
-  const user = ref<LoginUser>({} as LoginUser);
+  const user = ref<any|LoginUser>({} as LoginUser);
   const isAuthenticated = ref(!!JwtService.getToken());
   if (JwtService.getToken() != null) {
     setAuth(JwtService.getToken());
   }
-   function decodeMyToken(token: string) {
+  function decodeMyToken(token: string) {
     var parts = token.split(".");
     if (parts.length !== 3) return null;
     try {
@@ -63,13 +63,19 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
   function setAuth(accessToken: any) {
-
+    debugger
     let userLogin = decodeMyToken(accessToken);
-    let authUser: LoginUser = userLogin.data;
+    let authUser: any|LoginUser = userLogin.data;
     isAuthenticated.value = true;
-  //await FechUser(authUser.Guid);
-  user.value = authUser;
-
+    ApiService.setHeader();
+    ApiService.get(`/User/GetUser/${authUser.Guid}`)
+      .then(({ data }) => {
+        user.value = data.data;
+      })
+      .catch(({ response }) => {
+        setError(response.data.errors);
+      });
+    //user.value = authUser;
     errors.value = {};
   }
 
@@ -83,22 +89,11 @@ export const useAuthStore = defineStore("auth", () => {
     errors.value = [];
     JwtService.destroyToken();
   }
-  const FechUser = async (Guid: string) => {
-    debugger
-    ApiService.setHeader();
-    return await ApiService.get(`/User/GetUser/${Guid}`)
-      .then(({ data }) => {
-        user.value = data;
-      })
-      .catch(({ response }) => {
-        setError(response.data.errors);
-      });
-  };
   function login(credentials: User) {
     return ApiService.post("/auth/login", credentials)
       .then(({ data }) => {
-        setAuth(data.accessToken);
         JwtService.saveToken(data.accessToken);
+        setAuth(data.accessToken);
       })
       .catch(({ response }) => {
         setError(response.data.errors);

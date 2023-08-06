@@ -18,24 +18,6 @@
       <div class="card-header pe-5" id="kt_drawer_chat_messenger_header">
         <!--begin::Title-->
         <div class="card-title">
-          <!--begin::User-->
-          <div class="d-flex justify-content-center flex-column me-3">
-            <a
-              href="#"
-              class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1"
-              >Brian Cox</a
-            >
-
-            <!--begin::Info-->
-            <div class="mb-0 lh-1">
-              <span
-                class="badge badge-success badge-circle w-10px h-10px me-1"
-              ></span>
-              <span class="fs-7 fw-semobold text-gray-400">Active</span>
-            </div>
-            <!--end::Info-->
-          </div>
-          <!--end::User-->
         </div>
         <!--end::Title-->
 
@@ -70,87 +52,10 @@
 
       <!--begin::Card body-->
       <div class="card-body" id="kt_drawer_chat_messenger_body">
-        <!--begin::Messages-->
-        <div
-          class="scroll-y me-n5 pe-5"
-          ref="messagesRef"
-          data-kt-element="messages"
-          data-kt-scroll="true"
-          data-kt-scroll-activate="true"
-          data-kt-scroll-height="auto"
-          data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer"
-          data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body"
-          data-kt-scroll-offset="0px"
-        >
-          <template v-for="(item, index) in messages" :key="index">
-            <MessageIn
-              ref="messagesInRef"
-              v-if="item.type === 'in'"
-              :name="item.name"
-              :image="item.image"
-              :time="item.time"
-              :text="item.text"
-            ></MessageIn>
-            <MessageOut
-              ref="messagesOutRef"
-              v-if="item.type === 'out'"
-              :image="item.image"
-              :time="item.time"
-              :text="item.text"
-            ></MessageOut>
-          </template>
-        </div>
-        <!--end::Messages-->
       </div>
       <!--end::Card body-->
-
       <!--begin::Card footer-->
       <div class="card-footer pt-4" id="kt_drawer_chat_messenger_footer">
-        <!--begin::Input-->
-        <input
-          class="form-control form-control-flush mb-3"
-          data-kt-element="input"
-          placeholder="Type a message"
-          v-model="newMessageText"
-          @keydown.enter="addNewMessage"
-        />
-        <!--end::Input-->
-
-        <!--begin:Toolbar-->
-        <div class="d-flex flex-stack">
-          <!--begin::Actions-->
-          <div class="d-flex align-items-center me-2">
-            <button
-              class="btn btn-sm btn-icon btn-active-light-primary me-1"
-              type="button"
-              data-bs-toggle="tooltip"
-              title="Coming soon"
-            >
-              <i class="bi bi-paperclip fs-3"></i>
-            </button>
-            <button
-              class="btn btn-sm btn-icon btn-active-light-primary me-1"
-              type="button"
-              data-bs-toggle="tooltip"
-              title="Coming soon"
-            >
-              <i class="bi bi-upload fs-3"></i>
-            </button>
-          </div>
-          <!--end::Actions-->
-
-          <!--begin::Send-->
-          <button
-            @click="addNewMessage"
-            class="btn btn-primary"
-            type="button"
-            data-kt-element="send"
-          >
-            Send
-          </button>
-          <!--end::Send-->
-        </div>
-        <!--end::Toolbar-->
       </div>
       <!--end::Card footer-->
     </div>

@@ -128,18 +128,18 @@ const MainMenuConfig: Array<MenuItem> = [
         ],
       },
       
-      {
-        sectionTitle: "Posts",
-        route: "/Posts",
-        keenthemesIcon: "profile-circle",
-        bootstrapIcon: "bi-person",
-        sub: [
-          {
-            heading: "PostList",
-            route: "/crafted/account/overview",
-          }
-        ],
-      },
+      // {
+      //   sectionTitle: "Posts",
+      //   route: "/Posts",
+      //   keenthemesIcon: "profile-circle",
+      //   bootstrapIcon: "bi-person",
+      //   sub: [
+      //     {
+      //       heading: "PostList",
+      //       route: "/crafted/account/overview",
+      //     }
+      //   ],
+      // },
       {
         sectionTitle: "User",
         route: "/User",

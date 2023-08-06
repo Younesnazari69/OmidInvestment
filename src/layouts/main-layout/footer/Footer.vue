@@ -8,13 +8,13 @@
     }">
       <!--begin::Copyright-->
       <div class="text-dark order-2 order-md-1">
-        <span class="fw-bold me-1">© فناوری اطلاعات سازمانی شرکت خدمات ارتباطی رایتل</span>
+        <span class="fw-bold me-1">© فناوری اطلاعات شرکت سرمایه گذاری امید</span>
       </div>
       <!--end::Copyright-->
       <!--begin::Menu-->
       <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
         <li class="menu-item">
-          <a href="https://staff.rightel.ir/esn/" target="_blank" class="menu-link px-2">پرتال کارکنان</a>
+          <a href="https://omidinvestment.ir/" target="_blank" class="menu-link px-2">پرتال سرمایه گذاری امید</a>
         </li>
         <!-- <li class="menu-item">
           <a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
