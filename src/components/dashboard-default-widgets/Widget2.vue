@@ -83,25 +83,7 @@ export default defineComponent({
       },
       {
         name: "Michael Eberon",
-        src: getAssetPath("media/avatars/300-11.jpg"),
-      },
-      {
-        name: "Susan Redwood",
-        initials: "S",
-        state: "primary",
-      },
-      {
-        name: "Melody Macy",
-        src: getAssetPath("media/avatars/300-2.jpg"),
-      },
-      {
-        name: "Perry Matthew",
-        initials: "P",
-        state: "danger",
-      },
-      {
-        name: "Barry Walter",
-        src: getAssetPath("media/avatars/300-12.jpg"),
+        src: getAssetPath("media/avatars/blank.png"),
       },
     ];
 

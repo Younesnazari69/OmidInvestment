@@ -444,16 +444,12 @@
 <script lang="ts">
 import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent, ref } from "vue";
-import Results from "@/layouts/main-layout/search/partials/Results.vue";
-//import PartialMain from "@/layouts/main-layout/search/partials/Main.vue";
 import Empty from "@/layouts/main-layout/search/partials/Empty.vue";
 import MenuComponent from "@/components/menu/MenuComponent.vue";
 
 export default defineComponent({
   name: "kt-search",
   components: {
-    Results,
-  //  PartialMain,
     Empty,
     MenuComponent,
   },

@@ -18,11 +18,13 @@ import { initInlineSvg } from "@/core/plugins/inline-svg";
 import { initVeeValidate } from "@/core/plugins/vee-validate";
 import { initKtIcon } from "@/core/plugins/keenthemes";
 import Vue3EasyDataTable from 'vue3-easy-data-table';
+import Vue3PersianDatetimePicker from 'vue3-persian-datetime-picker'
 
 import 'vue3-easy-data-table/dist/style.css';
 import "@/core/plugins/prismjs";
 const app = createApp(App);
 app.component('EasyDataTable', Vue3EasyDataTable);
+app.component('DatePicker', Vue3PersianDatetimePicker)
 
 app.use(createPinia());
 app.use(router);

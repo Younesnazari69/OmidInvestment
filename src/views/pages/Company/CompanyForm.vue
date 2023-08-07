@@ -141,8 +141,9 @@
 
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تاریخ پذیرش</label>
+              <date-picker v-model="dateOfAcceptance" auto-submit />
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
-                name="dateOfAcceptance" autocomplete="off" />
+                name="dateOfAcceptance" autocomplete="off" v-model="dateOfAcceptance" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
                   <ErrorMessage name="dateOfAcceptance" />
@@ -191,8 +192,9 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">بورسی است</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="hasBourse"
-                autocomplete="off" />
+              <div class="form-control form-control-lg form-control-solid">
+                <Field name="hasBourse" type="checkbox" :value="false" />
+              </div>
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
                   <ErrorMessage name="hasBourse" />
@@ -247,8 +249,9 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">ماه شروع دوره مالی</label>
+              <date-picker v-model="monthStartFiscalYear" auto-submit />
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
-                name="monthStartFiscalYear" autocomplete="off" />
+                name="monthStartFiscalYear" autocomplete="off" v-model="monthStartFiscalYear" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
                   <ErrorMessage name="monthStartFiscalYear" />
@@ -347,13 +350,14 @@ export default defineComponent({
     const CompanyType = ref<any | object>({ value: null, text: "", });
     const IndustryType = ref<any | object>({ value: null, text: "", });
     const MarketType = ref<any | object>({ value: null, text: "", });
-
     const CompanyList = ref([]);
     const CompanyLevelList = ref([]);
     const CompanystatusList = ref([]);
     const CompanyTypeList = ref([]);
     const IndustryTypeList = ref([]);
     const MarketTypeList = ref([]);
+    const monthStartFiscalYear = ref([]);
+    const dateOfAcceptance = ref([]);
 
     const submitButton = ref<HTMLButtonElement | null>(null);
 
@@ -366,7 +370,6 @@ export default defineComponent({
       companyLevelID: Yup.number().required("انتخاب سطح شرکت الزامیست").label("companyLevelID"),
       companystatusID: Yup.number().required("انتخاب وضعیت شرکت الزامیست").label("companystatusID"),
       companyTypeID: Yup.number().required("انتخاب نوع شرکت الزامیست").label("companyTypeID"),
-      hasBourse: Yup.bool().required("بورسی بودن یا نبودن الزامیست").label("hasBourse"),
       industryTypeID: Yup.number().required("انتخاب نوع صنعت شرکت الزامیست").label("industryTypeID"),
       marketTypeId: Yup.number().required("انتخاب نوع بازار شرکت الزامیست").label("marketTypeId"),
       ownershipPercentage: Yup.number().required(" درصد مالکیت هلدینگ الزامیست").label("ownershipPercentage"),
@@ -383,10 +386,11 @@ export default defineComponent({
       headOfficePhoneNumber: Yup.string().label("headOfficePhoneNumber").nullable(),
       site: Yup.string().label("site").nullable(),
       symbol: Yup.string().label("symbol").nullable(),
-      monthStartFiscalYear: Yup.number().label("monthStartFiscalYear").nullable(),
+      monthStartFiscalYear: Yup.date().label("monthStartFiscalYear").nullable(),
       activitySubject: Yup.string().label("activitySubject").nullable(),
-    });
+      hasBourse: Yup.bool().label("hasBourse").nullable(),
 
+    });
     onBeforeMount(() => {
       const id = route.params.id;
       if (id != "null") {
@@ -448,7 +452,7 @@ export default defineComponent({
         })
           .then((result) => {
             if (result.isConfirmed) {
-              CompanyData.value=null;
+              CompanyData.value = null;
             } else if (result.isDismissed) {
               router.push({ name: "CompanyList" });
             }
@@ -493,7 +497,9 @@ export default defineComponent({
       Companystatus,
       CompanyType,
       IndustryType,
-      MarketType
+      MarketType,
+      monthStartFiscalYear,
+      dateOfAcceptance
     };
   },
 });

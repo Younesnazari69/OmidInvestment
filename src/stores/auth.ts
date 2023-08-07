@@ -31,7 +31,7 @@ export interface LoginUser {
 
 export const useAuthStore = defineStore("auth", () => {
   const errors = ref({});
-  const user = ref<any|LoginUser>({} as LoginUser);
+  const user = ref<any | LoginUser>({} as LoginUser);
   const isAuthenticated = ref(!!JwtService.getToken());
   if (JwtService.getToken() != null) {
     setAuth(JwtService.getToken());
@@ -65,7 +65,7 @@ export const useAuthStore = defineStore("auth", () => {
   function setAuth(accessToken: any) {
     debugger
     let userLogin = decodeMyToken(accessToken);
-    let authUser: any|LoginUser = userLogin.data;
+    let authUser: any | LoginUser = userLogin.data;
     isAuthenticated.value = true;
     ApiService.setHeader();
     ApiService.get(`/User/GetUser/${authUser.Guid}`)
@@ -92,8 +92,12 @@ export const useAuthStore = defineStore("auth", () => {
   function login(credentials: User) {
     return ApiService.post("/auth/login", credentials)
       .then(({ data }) => {
-        JwtService.saveToken(data.accessToken);
-        setAuth(data.accessToken);
+        debugger
+        if (data.accessToken != undefined) {
+          JwtService.saveToken(data.accessToken);
+          setAuth(data.accessToken);
+        }
+        setError(data.errors);
       })
       .catch(({ response }) => {
         setError(response.data.errors);

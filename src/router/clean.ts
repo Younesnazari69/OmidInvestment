@@ -40,15 +40,6 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
-        path: "/sign-up",
-        name: "sign-up",
-        component: () =>
-          import("@/views/crafted/authentication/basic-flow/SignUp.vue"),
-        meta: {
-          pageTitle: "Sign Up",
-        },
-      },
-      {
         path: "/password-reset",
         name: "password-reset",
         component: () =>
