@@ -31,9 +31,12 @@
                 </router-link>
               </div>
             </template>
-            
-            <div v-if="((Usergroups==1) || (Usergroups==2 && menuItem.sectionTitle=='Forms')) &&  menuItem.sectionTitle && menuItem.route" :class="{ show: hasActiveChildren(menuItem.route) }"
-              class="menu-item menu-accordion" data-kt-menu-sub="accordion" data-kt-menu-trigger="click">
+
+            <!-- <div        v-if="((Usergroups == 1) || (Usergroups == 2 && menuItem.sectionTitle == 'Forms')) && menuItem.sectionTitle && menuItem.route" -->
+            <div
+              v-if="ShowMenu == true && CheckAccessMenu(menuItem.sectionTitle) && menuItem.sectionTitle && menuItem.route"
+              :class="{ show: hasActiveChildren(menuItem.route) }" class="menu-item menu-accordion"
+              data-kt-menu-sub="accordion" data-kt-menu-trigger="click">
               <span class="menu-link">
                 <span v-if="menuItem.keenthemesIcon || menuItem.bootstrapIcon" class="menu-icon">
                   <i v-if="sidebarMenuIcons === 'bootstrap'" :class="menuItem.bootstrapIcon" class="bi fs-3"></i>
@@ -163,7 +166,7 @@
 
 <script lang="ts">
 import { getAssetPath } from "@/core/helpers/assets";
-import { defineComponent, onMounted, ref,onBeforeMount } from "vue";
+import { defineComponent, onMounted, ref, onBeforeMount, watch } from "vue";
 import { useRoute } from "vue-router";
 import MainMenuConfig from "@/core/config/MainMenuConfig";
 import { sidebarMenuIcons } from "@/core/helpers/config";
@@ -176,15 +179,17 @@ export default defineComponent({
   components: {},
   setup() {
     const AuthStore = useAuthStore();
-    const Usergroups = ref();
+    const ShowMenu = ref(false);
+
     const { t, te } = useI18n();
     const route = useRoute();
     const scrollElRef = ref<null | HTMLElement>(null);
-    onBeforeMount(()=>{
-      console.log(AuthStore.user.groups);      
-      Usergroups.value = AuthStore.user.groups!=null?  AuthStore.user.groups[0].id:0;
+    onBeforeMount(() => {
+      //console.log(AuthStore.user.groups);      
+      //Usergroups.value = AuthStore.user.groups!=null?  AuthStore.user.groups[0].id:0;
     })
     onMounted(() => {
+      debugger
       if (scrollElRef.value) {
         scrollElRef.value.scrollTop = 0;
       }
@@ -197,18 +202,46 @@ export default defineComponent({
         return text;
       }
     };
+    const CheckAccessMenu = (Menu: string) => {
+      let Usergroups = AuthStore.user.groups[0];
+      let Access = false;
 
+     // Usergroups.every(element => {
+        switch (Usergroups.id) {
+          case 1:
+            Access = true;
+            break;
+          case 2:
+            if (Menu == 'Forms') {
+              Access = true;
+              break;
+            } 
+        }
+
+        if (Access == true) {
+          return Access;
+        }
+     // })
+    };
+    const forceRerender = () => {
+      ShowMenu.value = true;
+    };
     const hasActiveChildren = (match: string) => {
       return route.path.indexOf(match) !== -1;
     };
-
+    watch(() => AuthStore.user.groups, () => {
+      forceRerender();
+    }
+    );
     return {
       hasActiveChildren,
       MainMenuConfig,
       sidebarMenuIcons,
       translate,
       getAssetPath,
-      Usergroups,
+      CheckAccessMenu,
+      ShowMenu
+
     };
   },
 });

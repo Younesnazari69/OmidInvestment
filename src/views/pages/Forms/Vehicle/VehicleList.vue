@@ -59,7 +59,6 @@ export default defineComponent({
 
 
     const FechData = async () => {
-      debugger
       //const { page, rowsPerPage, sortBy, sortType } = serverOptions.value;
       loading.value = true;
       return store.FechVehicles(serverOptions.value).then(() => {

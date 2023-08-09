@@ -30,7 +30,6 @@
   <KTDrawers />
   <KTScrollTop />
   <KTModals />
-
 </template>
 
 <script lang="ts">
@@ -40,6 +39,7 @@ import {
   onBeforeMount,
   onMounted,
   watch,
+  ref
 } from "vue";
 import KTHeader from "@/layouts/main-layout/header/Header.vue";
 import KTSidebar from "@/layouts/main-layout/sidebar/Sidebar.vue";
@@ -59,11 +59,11 @@ export default defineComponent({
     KTHeader,
     KTSidebar,
     KTContent,
-   // KTToolbar,
+    // KTToolbar,
     KTFooter,
     KTDrawers,
     KTScrollTop,
-  //  KTModals,
+    //  KTModals,
   },
   setup() {
     const route = useRoute();
@@ -71,7 +71,6 @@ export default defineComponent({
     onBeforeMount(() => {
       LayoutService.init();
     });
-
     onMounted(() => {
       nextTick(() => {
         reinitializeComponents();
@@ -86,6 +85,8 @@ export default defineComponent({
         });
       }
     );
+    return {
+    };
   },
 });
 </script>

@@ -46,7 +46,6 @@
       });
   
       const FechData= async () => {
-        debugger
         loading.value = true;
         return store.FechRegions(serverOptions.value).then(() => {
           items.value = store.RegionsData.RegionList;

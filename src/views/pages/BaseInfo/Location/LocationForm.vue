@@ -181,7 +181,6 @@ export default defineComponent({
     });
     //Form submit function
     const onSubmitLogin = async (values: any) => {
-      debugger
       //values = values as Location;
       // Clear existing errors
       if (submitButton.value) {

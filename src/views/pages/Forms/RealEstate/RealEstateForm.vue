@@ -23,7 +23,7 @@
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شرکت</label>
               <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
-                v-model="Company">
+                v-model="Company" isDisabled="true">
               </model-select>
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="companyID"
                 autocomplete="off" v-model="Company.value" hidden="true" />
@@ -305,7 +305,7 @@ export default defineComponent({
     });
     //Form submit function
     const onSubmitLogin = async (values: any) => {
-      debugger
+      
       // Clear existing errors
       if (submitButton.value) {
         // eslint-disable-next-line
@@ -313,7 +313,7 @@ export default defineComponent({
         // Activate indicator
         submitButton.value.setAttribute("data-kt-indicator", "on");
       }
-      debugger
+      
       values.Files = UploudFiles.value;
       //values.append('file', UploudFile);
       await store.UpdateRealEstate(values);
@@ -368,7 +368,7 @@ export default defineComponent({
     };
     //#region Files
     const OriginalTitleDeedFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
@@ -387,7 +387,7 @@ export default defineComponent({
       });
     }
     const BuildingApprovalCertificateFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
@@ -406,7 +406,7 @@ export default defineComponent({
       });
     }
     const EndOfWorkFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
@@ -425,7 +425,7 @@ export default defineComponent({
       });
     }
     const ConstructionProjectAgreementsFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
@@ -444,7 +444,7 @@ export default defineComponent({
       });
     }
     const ConstructionPlansFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();

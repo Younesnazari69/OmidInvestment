@@ -3,7 +3,7 @@
   <div class="w-lg-500px p-10">
     <!--begin::Form-->
     <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin" :validation-schema="login"
-      :initial-values="{ email: 'admin@demo.com', password: 'demo' }">
+      >
       <!--begin::Heading-->
       <div class="text-center mb-10">
         <!--begin::Title-->
@@ -19,12 +19,12 @@
         <!--end::Label-->
 
         <!--begin::Input-->
-        <Field tabindex="1" class="form-control form-control-lg form-control-solid" type="text" name="Username"
+        <Field tabindex="1" class="form-control form-control-lg form-control-solid" type="text" name="username"
           autocomplete="off" />
         <!--end::Input-->
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
-            <ErrorMessage name="Username" />
+            <ErrorMessage name="username" />
           </div>
         </div>
       </div>
@@ -41,12 +41,12 @@
         <!--end::Wrapper-->
 
         <!--begin::Input-->
-        <Field tabindex="2" class="form-control form-control-lg form-control-solid" type="Password" name="Password"
+        <Field tabindex="2" class="form-control form-control-lg form-control-solid" type="Password" name="password"
           autocomplete="off" />
         <!--end::Input-->
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
-            <ErrorMessage name="Password" />
+            <ErrorMessage name="password" />
           </div>
         </div>
       </div>
@@ -97,13 +97,13 @@ export default defineComponent({
 
     //Create form validation object
     const login = Yup.object().shape({
-      Username: Yup.string().required().label("Username"),
-      password: Yup.string().min(4).required().label("Password"),
+      username: Yup.string().required().label("username"),
+      password: Yup.string().min(4).required().label("password"),
     });
 
     //Form submit function
     const onSubmitLogin = async (values: any) => {
-      values = values as User;
+     // values = values as User;
       // Clear existing errors
       store.logout();
 

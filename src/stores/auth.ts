@@ -62,13 +62,13 @@ export const useAuthStore = defineStore("auth", () => {
       return null;
     }
   };
-  function setAuth(accessToken: any) {
+  async function setAuth(accessToken: any) {
     debugger
-    let userLogin = decodeMyToken(accessToken);
+    let userLogin = await decodeMyToken(accessToken);
     let authUser: any | LoginUser = userLogin.data;
     isAuthenticated.value = true;
-    ApiService.setHeader();
-    ApiService.get(`/User/GetUser/${authUser.Guid}`)
+    await ApiService.setHeader();
+    await ApiService.get(`/User/GetUser/${authUser.Guid}`)
       .then(({ data }) => {
         user.value = data.data;
       })
@@ -89,10 +89,9 @@ export const useAuthStore = defineStore("auth", () => {
     errors.value = [];
     JwtService.destroyToken();
   }
-  function login(credentials: User) {
+  function login(credentials: any | User) {
     return ApiService.post("/auth/login", credentials)
       .then(({ data }) => {
-        debugger
         if (data.accessToken != undefined) {
           JwtService.saveToken(data.accessToken);
           setAuth(data.accessToken);
@@ -129,7 +128,6 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   function verifyAuth() {
-    //   debugger
     if (JwtService.getToken()) {
       ApiService.setHeader();
       ApiService.post("/auth/CheckValidtionToken", { Token: JwtService.getToken() })

@@ -50,7 +50,6 @@ export default defineComponent({
     });
 
     const FechData = async () => {
-      debugger
       //const { page, rowsPerPage, sortBy, sortType } = serverOptions.value;
       loading.value = true;
       return store.FechLocations(serverOptions.value).then(() => {
@@ -66,7 +65,6 @@ export default defineComponent({
     };
 
     const editItem = (val: string) => {
-      debugger
       router.push({ name: "LocationForm" , params: { id: val }});
     };
     const AddItem = () => {

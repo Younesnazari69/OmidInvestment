@@ -423,7 +423,6 @@ export default defineComponent({
     });
     //Form submit function
     const onSubmitLogin = async (values: any) => {
-      debugger
       //values = values as Company;
       // Clear existing errors
       if (submitButton.value) {

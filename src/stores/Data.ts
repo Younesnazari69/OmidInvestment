@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import ApiService from "@/core/services/ApiService";
-import type { Item, ServerOptions } from "vue3-easy-data-table";
+import type { ServerOptions } from "vue3-easy-data-table";
 
 // export interface LoginUser {
 
@@ -67,7 +67,6 @@ export const useDataStore = defineStore("Data", () => {
   }
   //#region Region
   function SetRegionList(data: any) {
-    debugger
     RegionsData.value = {
       RegionList: data.data,
       serverCurrentPageItems: data.page,
@@ -75,7 +74,6 @@ export const useDataStore = defineStore("Data", () => {
     };
   }
   function SetRegion(data: any) {
-    debugger
     RegionData.value = data.data;
     errors.value = data.errors;
   }
@@ -101,7 +99,6 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechRegion = async (id: string | string[]) => {
-    debugger
     return await ApiService.get(`/BaseInfo/GetRegion/${id}`)
       .then(({ data }) => {
         SetRegion(data);
@@ -123,7 +120,6 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateRegion = async (RegionModel) => {
-    debugger
     return ApiService.post(`/BaseInfo/UpdateRegion`, RegionModel)
       .then(({ data }) => {
         console.log(data);
@@ -135,7 +131,6 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region User 
   function SetAllUserList(data: any) {
-    debugger
     AllUsersData.value = {
       AllUserList: data.data,
       serverCurrentPageItems: data.page,
@@ -144,7 +139,7 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
   function SetUser(data: any) {
-    debugger
+    
     UserData.value = data.data;
     errors.value = data.errors;
   }
@@ -169,7 +164,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechUser = async (Guid: string | string[]) => {
-    debugger
+    
     return await ApiService.get(`/User/GetUser/${Guid}`)
       .then(({ data }) => {
         SetUser(data);
@@ -191,7 +186,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateUser = async (UserModel) => {
-    debugger
+    
     return ApiService.post(`/User/UpdateUser`, UserModel)
       .then(({ data }) => {
         console.log(data);
@@ -203,7 +198,6 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region Location 
   function SetLocationList(data: any) {
-    debugger
     LocationsData.value = {
       LocationList: data.data,
       serverCurrentPageItems: data.page,
@@ -212,7 +206,6 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
   function SetLocation(data: any) {
-    debugger
     LocationData.value = data.data;
     errors.value = data.errors;
   }
@@ -237,7 +230,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechLocation = async (id: string | string[]) => {
-    debugger
+    
     return await ApiService.get(`/BaseInfo/GetLocation/${id}`)
       .then(({ data }) => {
         SetLocation(data);
@@ -259,7 +252,6 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateLocation = async (LocationModel) => {
-    debugger
     return ApiService.post(`/BaseInfo/UpdateLocation`, LocationModel)
       .then(({ data }) => {
         console.log(data);
@@ -303,7 +295,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechCompany = async (id: string | string[]) => {
-    debugger
+    
     return await ApiService.get(`/Company/GetCompany/${id}`)
       .then(({ data }) => {
         SetCompany(data);
@@ -325,7 +317,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateCompany = async (CompanyModel) => {
-    debugger
+    
     return ApiService.post(`/Company/UpdateCompany`, CompanyModel)
       .then(({ data }) => {
         console.log(data);
@@ -481,7 +473,7 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region EquipmentAndMachinery 
   function SetEquipmentAndMachineryList(data: any) {
-    debugger
+    
     EquipmentAndMachinerysData.value = {
       EquipmentAndMachineryList: data.data,
       serverCurrentPageItems: data.page,
@@ -490,7 +482,6 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
   function SetEquipmentAndMachinery(data: any) {
-    debugger
     EquipmentAndMachineryData.value = data.data;
     errors.value = data.errors;
   }
@@ -515,7 +506,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechEquipmentAndMachinery = async (id: string | string[]) => {
-    debugger
+    
     return await ApiService.get(`/Forms/GetEquipmentAndMachinery/${id}`)
       .then(({ data }) => {
         SetEquipmentAndMachinery(data);
@@ -537,7 +528,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateEquipmentAndMachinery = async (EquipmentAndMachineryModel) => {
-    debugger
+    
     return ApiService.post(`/Forms/UpdateEquipmentAndMachinery`, EquipmentAndMachineryModel)
       .then(({ data }) => {
         console.log(data);
@@ -549,7 +540,7 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region RealEstate 
   function SetRealEstateList(data: any) {
-    debugger
+    
     RealEstatesData.value = {
       RealEstateList: data.data,
       serverCurrentPageItems: data.page,
@@ -558,7 +549,7 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
   function SetRealEstate(data: any) {
-    debugger
+    
     RealEstateData.value = data.data;
     errors.value = data.errors;
   }
@@ -583,7 +574,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechRealEstate = async (id: string | string[]) => {
-    debugger
+    
     return await ApiService.get(`/Forms/GetRealEstate/${id}`)
       .then(({ data }) => {
         SetRealEstate(data);
@@ -605,7 +596,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateRealEstate = async (RealEstateModel) => {
-    debugger
+    
     return ApiService.post(`/Forms/UpdateRealEstate`, RealEstateModel)
       .then(({ data }) => {
         console.log(data);
@@ -617,7 +608,7 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region Vehicle 
   function SetVehicleList(data: any) {
-    debugger
+    
     VehiclesData.value = {
       VehicleList: data.data,
       serverCurrentPageItems: data.page,
@@ -626,12 +617,10 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
   function SetVehicle(data: any) {
-    debugger
     VehicleData.value = data.data;
     errors.value = data.errors;
   }
   const FechVehicles = async (serverOptions: ServerOptions) => {
-   debugger
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Forms/GetVehicles/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -652,7 +641,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechVehicle = async (id: string | string[]) => {
-    debugger
+    
     return await ApiService.get(`/Forms/GetVehicle/${id}`)
       .then(({ data }) => {
         SetVehicle(data);
@@ -674,7 +663,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateVehicle = async (VehicleModel) => {
-    debugger
+    
     return ApiService.post(`/Forms/UpdateVehicle`, VehicleModel)
       .then(({ data }) => {
         console.log(data);
@@ -687,7 +676,7 @@ export const useDataStore = defineStore("Data", () => {
   //#region Files 
 
   function SetFilesList(data: any) {
-    debugger
+    
     FilesData.value = {
       FilesList: data.data,
       serverCurrentPageItems: data.page,
@@ -716,7 +705,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const DeleteFiles = async (id: string) => {
-    debugger
+    
     return await ApiService.get(`/Forms/DeleteFiles/${id}`)
       .then(({ data }) => {
         // SetAllVehicleList(data);

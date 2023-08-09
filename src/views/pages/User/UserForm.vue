@@ -216,7 +216,7 @@ export default defineComponent({
       let Guid:string | string[] = route.params.guid;
       if (Guid != 'null') {
         store.FechUser(Guid).then(() => {
-          debugger;
+          ;
           userData.value = store.UserData;
         });
       }

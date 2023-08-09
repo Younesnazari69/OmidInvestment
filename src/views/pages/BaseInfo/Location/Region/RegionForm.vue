@@ -82,10 +82,8 @@ export default defineComponent({
 
     onBeforeMount(() => {
       const id = route.params.id;
-      debugger
       if (id != "null") {
         store.FechRegion(id).then(() => {
-          debugger;
           RegionData.value = store.RegionData;
         });
       }

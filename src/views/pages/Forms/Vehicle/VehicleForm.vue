@@ -23,7 +23,7 @@
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شرکت</label>
               <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
-                v-model="Company">
+                v-model="Company" isDisabled="true">
               </model-select>
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="companyID"
                 autocomplete="off" v-model="Company.value" hidden="true" />
@@ -54,7 +54,7 @@
               </div>
             </div>
             <div class="col-xl-4">
-              <label class="form-label fw-bold text-dark fs-6">استان</label>
+              <label class="form-label fw-bold text-dark fs-6">استان محل استقرار</label>
               <model-select class="form-control form-control-lg form-control-solid" :options="ProvinceList"
                 v-model="Province">
               </model-select>
@@ -67,7 +67,7 @@
               </div>
             </div>
             <div class="col-xl-4">
-              <label class="form-label fw-bold text-dark fs-6">شهر</label>
+              <label class="form-label fw-bold text-dark fs-6">شهر محل استقرار</label>
               <model-select class="form-control form-control-lg form-control-solid" :options="CityList" v-model="City">
               </model-select>
               <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="cityID"
@@ -317,7 +317,7 @@ export default defineComponent({
     };
     //#region Files
     const OriginalTitleDeedFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
@@ -336,7 +336,7 @@ export default defineComponent({
       });
     }
     const GreenLeafFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
@@ -355,7 +355,7 @@ export default defineComponent({
       });
     }
     const CarCardFiles = (event) => {
-      debugger
+      
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
