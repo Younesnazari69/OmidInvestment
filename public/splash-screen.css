@@ -4,6 +4,10 @@ body.page-loading {
 
 .splash-screen {
     display: none;
+    background-image: url('/media/back.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .page-loading .splash-screen {
@@ -24,7 +28,7 @@ body.page-loading {
 }
 
 .page-loading .splash-screen span {
-    color: #5E6278;
+    color: #ffffff;
     transition: none !important;
     -webkit-font-smoothing: antialiased;
 }
@@ -32,7 +36,7 @@ body.page-loading {
 .page-loading .splash-screen img {
     margin-left: calc(100vw - 100%);
     margin-bottom: 30px;
-    height: 30px !important;
+    height: 200px !important;
 }
 
 html[data-bs-theme="dark"] .page-loading .splash-screen {

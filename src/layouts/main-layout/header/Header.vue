@@ -18,7 +18,7 @@
             v-if="themeMode === 'light' && layout === 'light-header'"
             alt="Logo"
             :src="getAssetPath('media/logos/AppLogo-125Wide.png')"
-            class="h-20px h-lg-30px app-sidebar-logo-default theme-light-show"
+            class="h-70px h-lg-100px app-sidebar-logo-default theme-light-show"
           />
           <img
             v-if="
@@ -27,7 +27,7 @@
             "
             alt="Logo"
             :src="getAssetPath('media/logos/AppLogo-125Wide.png')"
-            class="h-20px h-lg-30px app-sidebar-logo-default"
+            class="h-70px h-lg-100px app-sidebar-logo-default"
           />
         </router-link>
       </div>

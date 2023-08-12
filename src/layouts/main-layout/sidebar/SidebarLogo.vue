@@ -10,18 +10,18 @@
         "
         alt="Logo"
         :src="getAssetPath('media/logos/AppLogo-125Wide.png')"
-        class="h-25px app-sidebar-logo-default"
+        class="h-70px app-sidebar-logo-default"
       />
       <img
         v-if="themeMode === 'light' && layout === 'light-sidebar'"
         alt="Logo"
         :src="getAssetPath('media/logos/AppLogo-125Wide.png')"
-        class="h-25px app-sidebar-logo-default"
+        class="h-70px app-sidebar-logo-default"
       />
       <img
         alt="Logo"
         :src="getAssetPath('media/logos/AppLogo-125Wide.png')"
-        class="h-20px app-sidebar-logo-minimize"
+        class="h-70px app-sidebar-logo-minimize"
       />
     </router-link>
     <!--end::Logo image-->
