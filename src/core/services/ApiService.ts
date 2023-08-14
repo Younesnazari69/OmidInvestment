@@ -52,11 +52,24 @@ class ApiService {
    */
   public static get(
     resource: string,
-    slug = "" as string
+    slug = "" as string,
+
   ): Promise<AxiosResponse> {
     return ApiService.vueInstance.axios.get(`${resource}/${slug}`);
   }
+  /**
+   * @description send the GET HTTP request
+   * @param resource: string
+   * @param slug: string
+   * @returns Promise<AxiosResponse>
+   */
+   public static getByConfig(
+    resource: string,
+    config = null as any
 
+  ): Promise<AxiosResponse> {
+    return ApiService.vueInstance.axios.get(`${resource}`,config);
+  }
   /**
    * @description set the POST HTTP request
    * @param resource: string

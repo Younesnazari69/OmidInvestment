@@ -197,15 +197,15 @@ export default defineComponent({
     const AuthStore = useAuthStore();
     const router = useRouter();
     const route = useRoute()
-    const EquipmentAndMachineryData = ref<any|object>({});
-    const Province = ref<any|object>({ value: null, text: "", });
-    const City = ref<any|object>({ value: null, text: "", });
-    const Company = ref<any|object>({ value: null, text: "", });
-    const UploudFiles = ref<any|object>([]);
+    const EquipmentAndMachineryData = ref<any | object>({});
+    const Province = ref<any | object>({ value: null, text: "", });
+    const City = ref<any | object>({ value: null, text: "", });
+    const Company = ref<any | object>({ value: null, text: "", });
+    const UploudFiles = ref<any | object>([]);
     const ProvinceList = ref([]);
     const CityList = ref([]);
     const CompanyList = ref([]);
-    const User = ref<any|object>({});
+    const User = ref<any | object>({});
     const submitButton = ref<HTMLButtonElement | null>(null);
 
     //Create form validation object
@@ -215,11 +215,11 @@ export default defineComponent({
       provinceID: Yup.number().required("انتخاب استان الزامیست").label("provinceID"),
       cityID: Yup.number().required("انتخاب شهر الزامیست").label("cityID"),
       inspection: Yup.string().required("مورد ارزیابی_تجهیزات ماشین آلات / تاسیسات الزامیست").label("inspection"),
-      municipalArea: Yup.string().label("municipalArea").nullable(),
-      regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),
       representativeMobile: Yup.string().matches(/^(\+98|0)?9\d{9}$/, "تلفن همراه صحیح نیست").required("تلفن همراه نماینده الزامیست").label("representativeMobile"),
       companyRepresentative_owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_owner_ToVisit"),
       address: Yup.string().label("address").required("آدرس الزامیست"),
+      municipalArea: Yup.string().label("municipalArea").nullable(),
+      regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),
     });
 
     onBeforeMount(() => {
@@ -312,11 +312,11 @@ export default defineComponent({
     };
     //#region Files 
     const StatementOfAssetsFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file:any = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -331,11 +331,11 @@ export default defineComponent({
       });
     }
     const LocationCodeFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -350,11 +350,11 @@ export default defineComponent({
       });
     }
     const InventoryOfSparePartsFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any= item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -369,7 +369,7 @@ export default defineComponent({
       });
     }
     const AllLicensesAndPermitsObtainedFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
@@ -388,11 +388,11 @@ export default defineComponent({
       });
     }
     const ImageOfAllBillsFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file:any = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,

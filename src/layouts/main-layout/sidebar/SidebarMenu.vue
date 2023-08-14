@@ -189,7 +189,6 @@ export default defineComponent({
       //Usergroups.value = AuthStore.user.groups!=null?  AuthStore.user.groups[0].id:0;
     })
     onMounted(() => {
-      debugger
       if (scrollElRef.value) {
         scrollElRef.value.scrollTop = 0;
       }

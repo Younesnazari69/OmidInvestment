@@ -78,7 +78,7 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
 
-  const FechRegions = async (serverOptions:any| ServerOptions) => {
+  const FechRegions = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/BaseInfo/GetRegions/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -139,7 +139,7 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
   function SetUser(data: any) {
-    
+
     UserData.value = data.data;
     errors.value = data.errors;
   }
@@ -164,7 +164,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechUser = async (Guid: string | string[]) => {
-    
+
     return await ApiService.get(`/User/GetUser/${Guid}`)
       .then(({ data }) => {
         SetUser(data);
@@ -186,7 +186,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateUser = async (UserModel) => {
-    
+
     return ApiService.post(`/User/UpdateUser`, UserModel)
       .then(({ data }) => {
         console.log(data);
@@ -209,7 +209,7 @@ export const useDataStore = defineStore("Data", () => {
     LocationData.value = data.data;
     errors.value = data.errors;
   }
-  const FechLocations = async (serverOptions:any| ServerOptions) => {
+  const FechLocations = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/BaseInfo/GetLocations/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -230,7 +230,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechLocation = async (id: string | string[]) => {
-    
+
     return await ApiService.get(`/BaseInfo/GetLocation/${id}`)
       .then(({ data }) => {
         SetLocation(data);
@@ -295,7 +295,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechCompany = async (id: string | string[]) => {
-    
+
     return await ApiService.get(`/Company/GetCompany/${id}`)
       .then(({ data }) => {
         SetCompany(data);
@@ -317,7 +317,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateCompany = async (CompanyModel) => {
-    
+
     return ApiService.post(`/Company/UpdateCompany`, CompanyModel)
       .then(({ data }) => {
         console.log(data);
@@ -336,7 +336,7 @@ export const useDataStore = defineStore("Data", () => {
     };
     errors.value = data.errors;
   }
-  const FechCompanyLevels = async (serverOptions: any|ServerOptions) => {
+  const FechCompanyLevels = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Company/GetCompanyLevels/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -365,7 +365,7 @@ export const useDataStore = defineStore("Data", () => {
     };
     errors.value = data.errors;
   }
-  const FechCompanystatus = async (serverOptions: any|ServerOptions) => {
+  const FechCompanystatus = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Company/GetCompanystatus/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -393,7 +393,7 @@ export const useDataStore = defineStore("Data", () => {
     };
     errors.value = data.errors;
   }
-  const FechCompanyTypes = async (serverOptions: any|ServerOptions) => {
+  const FechCompanyTypes = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Company/GetCompanyTypes/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -422,7 +422,7 @@ export const useDataStore = defineStore("Data", () => {
     };
     errors.value = data.errors;
   }
-  const FechIndustryTypes = async (serverOptions: any|ServerOptions) => {
+  const FechIndustryTypes = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Company/GetIndustryTypes/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -450,7 +450,7 @@ export const useDataStore = defineStore("Data", () => {
     };
     errors.value = data.errors;
   }
-  const FechMarketTypes = async (serverOptions:any| ServerOptions) => {
+  const FechMarketTypes = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Company/GetMarketTypes/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
@@ -473,7 +473,7 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region EquipmentAndMachinery 
   function SetEquipmentAndMachineryList(data: any) {
-    
+
     EquipmentAndMachinerysData.value = {
       EquipmentAndMachineryList: data.data,
       serverCurrentPageItems: data.page,
@@ -506,7 +506,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechEquipmentAndMachinery = async (id: string | string[]) => {
-    
+
     return await ApiService.get(`/Forms/GetEquipmentAndMachinery/${id}`)
       .then(({ data }) => {
         SetEquipmentAndMachinery(data);
@@ -528,7 +528,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateEquipmentAndMachinery = async (EquipmentAndMachineryModel) => {
-    
+
     return ApiService.post(`/Forms/UpdateEquipmentAndMachinery`, EquipmentAndMachineryModel)
       .then(({ data }) => {
         console.log(data);
@@ -540,7 +540,7 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region RealEstate 
   function SetRealEstateList(data: any) {
-    
+
     RealEstatesData.value = {
       RealEstateList: data.data,
       serverCurrentPageItems: data.page,
@@ -549,7 +549,7 @@ export const useDataStore = defineStore("Data", () => {
     errors.value = data.errors;
   }
   function SetRealEstate(data: any) {
-    
+
     RealEstateData.value = data.data;
     errors.value = data.errors;
   }
@@ -574,7 +574,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechRealEstate = async (id: string | string[]) => {
-    
+
     return await ApiService.get(`/Forms/GetRealEstate/${id}`)
       .then(({ data }) => {
         SetRealEstate(data);
@@ -596,7 +596,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateRealEstate = async (RealEstateModel) => {
-    
+
     return ApiService.post(`/Forms/UpdateRealEstate`, RealEstateModel)
       .then(({ data }) => {
         console.log(data);
@@ -608,7 +608,7 @@ export const useDataStore = defineStore("Data", () => {
   //#endregion
   //#region Vehicle 
   function SetVehicleList(data: any) {
-    
+
     VehiclesData.value = {
       VehicleList: data.data,
       serverCurrentPageItems: data.page,
@@ -641,7 +641,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechVehicle = async (id: string | string[]) => {
-    
+
     return await ApiService.get(`/Forms/GetVehicle/${id}`)
       .then(({ data }) => {
         SetVehicle(data);
@@ -663,7 +663,7 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   const UpdateVehicle = async (VehicleModel) => {
-    
+
     return ApiService.post(`/Forms/UpdateVehicle`, VehicleModel)
       .then(({ data }) => {
         console.log(data);
@@ -676,7 +676,7 @@ export const useDataStore = defineStore("Data", () => {
   //#region Files 
 
   function SetFilesList(data: any) {
-    
+
     FilesData.value = {
       FilesList: data.data,
       serverCurrentPageItems: data.page,
@@ -704,8 +704,16 @@ export const useDataStore = defineStore("Data", () => {
         });
     }
   };
+  const FechFile = async (Url) => {
+    return await ApiService.getByConfig(Url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      responseType: 'blob',
+    })
+  };
   const DeleteFiles = async (id: string) => {
-    
+
     return await ApiService.get(`/Forms/DeleteFiles/${id}`)
       .then(({ data }) => {
         // SetAllVehicleList(data);
@@ -715,7 +723,7 @@ export const useDataStore = defineStore("Data", () => {
       });
 
   };
-    //#endregion
+  //#endregion
 
   return {
     errors,
@@ -772,6 +780,7 @@ export const useDataStore = defineStore("Data", () => {
     VehiclesData,
     VehicleData,
     FechFiles,
+    FechFile,
     DeleteFiles,
     FilesData
 

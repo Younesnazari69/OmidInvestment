@@ -63,7 +63,6 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
   async function setAuth(accessToken: any) {
-    debugger
     let userLogin = await decodeMyToken(accessToken);
     let authUser: any | LoginUser = userLogin.data;
     isAuthenticated.value = true;

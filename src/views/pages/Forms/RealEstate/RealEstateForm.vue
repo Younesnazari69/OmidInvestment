@@ -247,16 +247,16 @@ export default defineComponent({
     const AuthStore = useAuthStore();
     const router = useRouter();
     const route = useRoute()
-    const RealEstateData = ref<any|object>({});
-    const Province = ref<any|object>({ value: null, text: "", });
-    const City = ref<any|object>({ value: null, text: "", });
-    const Company = ref<any|object>({ value: null, text: "", });
-    const UploudFiles = ref<any|object>([]);
+    const RealEstateData = ref<any | object>({});
+    const Province = ref<any | object>({ value: null, text: "", });
+    const City = ref<any | object>({ value: null, text: "", });
+    const Company = ref<any | object>({ value: null, text: "", });
+    const UploudFiles = ref<any | object>([]);
     const ProvinceList = ref([]);
     const CityList = ref([]);
 
     const CompanyList = ref([]);
-    const User = ref<any|object>({});
+    const User = ref<any | object>({});
     const submitButton = ref<HTMLButtonElement | null>(null);
 
     //Create form validation object
@@ -271,11 +271,11 @@ export default defineComponent({
       title: Yup.string().required("عنوان الزامیست").label("title"),
       totalArea: Yup.number().required("متراژ کل الزامیست").label("totalArea"),
       area: Yup.number().required("مساحت الزامیست").label("area"),
-      municipalArea: Yup.string().label("municipalArea").nullable(),
-      regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),
       representativeMobile: Yup.string().matches(/^(\+98|0)?9\d{9}$/, "تلفن همراه صحیح نیست").required("تلفن همراه نماینده الزامیست").label("representativeMobile"),
       companyRepresentative_owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_owner_ToVisit"),
       address: Yup.string().required("آدرس الزامیست").label("address"),
+      municipalArea: Yup.string().label("municipalArea").nullable(),
+      regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),
     });
 
     onBeforeMount(() => {
@@ -305,7 +305,7 @@ export default defineComponent({
     });
     //Form submit function
     const onSubmitLogin = async (values: any) => {
-      
+
       // Clear existing errors
       if (submitButton.value) {
         // eslint-disable-next-line
@@ -313,7 +313,7 @@ export default defineComponent({
         // Activate indicator
         submitButton.value.setAttribute("data-kt-indicator", "on");
       }
-      
+
       values.Files = UploudFiles.value;
       //values.append('file', UploudFile);
       await store.UpdateRealEstate(values);
@@ -368,11 +368,11 @@ export default defineComponent({
     };
     //#region Files
     const OriginalTitleDeedFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file:any = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -387,11 +387,11 @@ export default defineComponent({
       });
     }
     const BuildingApprovalCertificateFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any= item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -406,11 +406,11 @@ export default defineComponent({
       });
     }
     const EndOfWorkFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any= item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -425,11 +425,11 @@ export default defineComponent({
       });
     }
     const ConstructionProjectAgreementsFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -444,11 +444,11 @@ export default defineComponent({
       });
     }
     const ConstructionPlansFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any= item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
