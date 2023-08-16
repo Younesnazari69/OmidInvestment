@@ -7,22 +7,10 @@
   <EasyDataTable v-model:server-options="serverOptions" :headers="headers" :items="items"
     :server-items-length="serverItemsLength" :loading="loading" buttons-pagination>
     <template #item-content="item">
-      <div v-if="item.contentType == 'image/jpeg'">
-        <img :width="100" :src="FechFile(item.urlFileName, item.contentType)" />
-      </div>
-      <div v-if="item.contentType == 'application/pdf'">
-        <!-- <embed :src="FechFile(item.id)" :width="100" type="application/pdf" /> -->
-        <VsFileTypePdf :width="200" />
-      </div>
+      <FileView :Item="item" ></FileView>
     </template>
     <template #item-operation="item">
       <div class="operation-wrapper">
-        <a :href="FechFile(item.urlFileName, item.contentType)" :download="'Omid_file' + item.contentType" target="_blank"
-          rel="noopener noreferrer">
-          <button class="btn btn-sm btn-success ">
-            <McFileDownloadLine />
-          </button>
-        </a>
         <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
           <BsTrash />
         </button>
@@ -37,8 +25,11 @@ import { useDataStore } from "@/stores/Data";
 import { useRouter, useRoute } from "vue-router";
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
 import { BsTrash, AkEdit, FlAddSquare, McFileDownloadLine, VsFileTypePdf } from '@kalimahapps/vue-icons';
+
+import FileView from '@/components/FileView.vue';
 export default defineComponent({
   components: {
+    FileView,
     BsTrash,
     FlAddSquare, McFileDownloadLine, VsFileTypePdf
   },
@@ -70,16 +61,16 @@ export default defineComponent({
         loading.value = false;
       });
     };
-    async function FechFile(urlFileName, contentType) {
-    let file= await store.FechFile(urlFileName).then(res => {
-        var blob = new Blob([res.data], {
-          type: contentType,
-        });
-        const data = URL.createObjectURL(blob);
-        return data;
-      });
-      return file
-    }
+    // async function FechFile(urlFileName, contentType) {
+    //   let file = await store.FechFile(urlFileName).then(res => {
+    //     var blob = new Blob([res.data], {
+    //       type: contentType,
+    //     });
+    //     const data = URL.createObjectURL(blob);
+    //     return data;
+    //   });
+    //   return file
+    // }
 
     const deleteItem = (val: string) => {
       return store.DeleteFiles(val).then(() => {
@@ -108,7 +99,7 @@ export default defineComponent({
       loading,
       deleteItem,
       ReternToList,
-      FechFile
+      //FechFile
       // editItem, AddItem
     };
   },

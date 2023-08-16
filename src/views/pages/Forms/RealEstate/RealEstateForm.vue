@@ -378,7 +378,7 @@ export default defineComponent({
             Type: file.type,
             FilePreviewUrl: reader.result,
             Name: file.name,
-            FormFileType: " اصل سند مالکیت",
+            FormFileType: "اصل سند مالکیت",
             FormFileTypeId: 1,
           };
           UploudFiles.value.push(newfile);

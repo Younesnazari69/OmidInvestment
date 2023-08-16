@@ -43,8 +43,8 @@ export const useDataStore = defineStore("Data", () => {
   const CompanyTypesData = ref<any>({});
   const IndustryTypesData = ref<any>({});
   const MarketTypesData = ref<any>({});
-
   const CompanyData = ref<any>({});
+  const GroupsData = ref<any>({});
   const EquipmentAndMachinerysData = ref<any>({});
   const EquipmentAndMachineryData = ref<any>({});
   const RealEstatesData = ref<any>({});
@@ -143,25 +143,35 @@ export const useDataStore = defineStore("Data", () => {
     UserData.value = data.data;
     errors.value = data.errors;
   }
-  const FechAllUsers = async (serverOptions: ServerOptions) => {
-    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
-    if (sortBy && sortType) {
-      return await ApiService.get(`/User/GetAllUsers/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+  const FechAllUsers = async (serverOptions: ServerOptions, filter: any) => {
+    // const { page, rowsPerPage, sortBy, sortType } = serverOptions;
+    // const { Firstname, Lastname } = filter;
+    debugger
+    const Filter = { page: serverOptions.page,
+      Number: serverOptions.rowsPerPage, 
+      sortBy: serverOptions.sortBy, 
+      sortType: serverOptions.sortType,
+      searchfield:filter.value.searchField,
+      searchvalue:filter.value.searchValue
+       }
+
+    //if (sortBy && sortType) {
+      return await ApiService.post(`/User/GetAllUsers`,Filter)
         .then(({ data }) => {
           SetAllUserList(data);
         })
         .catch(({ response }) => {
           setError(response.data.errors);
         });
-    } else {
-      return await ApiService.get(`/User/GetAllUsers/${page}&${rowsPerPage}&${" "}&${" "}`)
-        .then(({ data }) => {
-          SetAllUserList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
-    }
+    // } else {
+    //   return await ApiService.get(`/User/GetAllUsers/${page}&${rowsPerPage}&${" "}&${" "}`)
+    //     .then(({ data }) => {
+    //       SetAllUserList(data);
+    //     })
+    //     .catch(({ response }) => {
+    //       setError(response.data.errors);
+    //     });
+    // }
   };
   const FechUser = async (Guid: string | string[]) => {
 
@@ -705,6 +715,7 @@ export const useDataStore = defineStore("Data", () => {
     }
   };
   const FechFile = async (Url) => {
+    debugger
     return await ApiService.getByConfig(Url, {
       headers: {
         'Content-Type': 'application/json',
@@ -724,7 +735,36 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   //#endregion
-
+  //#region Company 
+  function SetGroupList(data: any) {
+    GroupsData.value = {
+      GroupList: data.data,
+      serverCurrentPageItems: data.page,
+      serverTotalItemsLength: data.count,
+    };
+    errors.value = data.errors;
+  }
+  const FechGroups = async (serverOptions: any | ServerOptions) => {
+    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
+    if (sortBy && sortType) {
+      return await ApiService.get(`/Group/GetGroups/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+        .then(({ data }) => {
+          SetCompanyLevelList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    } else {
+      return await ApiService.get(`/Group/GetGroups/${page}&${rowsPerPage}&${" "}&${" "}`)
+        .then(({ data }) => {
+          SetCompanyLevelList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    }
+  };
+  //#endregion
   return {
     errors,
     AllUsersData,
@@ -782,8 +822,9 @@ export const useDataStore = defineStore("Data", () => {
     FechFiles,
     FechFile,
     DeleteFiles,
-    FilesData
-
+    FilesData,
+    FechGroups,
+    GroupsData
   };
 });
 

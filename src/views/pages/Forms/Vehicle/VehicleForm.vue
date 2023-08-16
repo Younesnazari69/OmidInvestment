@@ -204,16 +204,16 @@ export default defineComponent({
     const AuthStore = useAuthStore();
     const router = useRouter();
     const route = useRoute()
-    const VehicleData = ref<any|object>({});
-    const UploudFiles = ref<any|object>([]);
+    const VehicleData = ref<any | object>({});
+    const UploudFiles = ref<any | object>([]);
     const ProvinceList = ref([]);
     const CityList = ref([]);
     const CompanyList = ref([]);
-    const User = ref<any|object>({});
+    const User = ref<any | object>({});
     const submitButton = ref<HTMLButtonElement | null>(null);
-    const Province = ref<any|object>({ value: null, text: "", });
-    const City = ref<any|object>({ value: null, text: "", });
-    const Company = ref<any|object>({ value: null, text: "", });
+    const Province = ref<any | object>({ value: null, text: "", });
+    const City = ref<any | object>({ value: null, text: "", });
+    const Company = ref<any | object>({ value: null, text: "", });
 
     //Create form validation object
     const VehicleModel = Yup.object().shape({
@@ -225,11 +225,10 @@ export default defineComponent({
       representativeMobile: Yup.string().matches(/^(\+98|0)?9\d{9}$/, "تلفن همراه صحیح نیست").required("تلفن همراه نماینده الزامیست").label("representativeMobile"),
       companyRepresentative_owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_owner_ToVisit"),
       vehicleType: Yup.string().required("نوع وسیله نقلیه الزامیست").label("vehicleType"),
-      policeLicensePlate: Yup.string().required("شماره پلاک الزامیست").matches(/(ایران)?(\d{2})(?:-|,| )(\d{3})([ آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]{1})(\d{2})/, "شماره پلاک صحیح نیست").label("policeLicensePlate"),
+      policeLicensePlate: Yup.string().required("شماره پلاک الزامیست").label("policeLicensePlate"),//.matches(/(ایران)?(\d{2})(?:-|,| )(\d{3})([ آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]{1})(\d{2})/, "شماره پلاک صحیح نیست")
       address: Yup.string().required("آدرس الزامیست").label("address"),
       municipalArea: Yup.string().label("municipalArea").nullable(),
       regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),
-
     });
     onBeforeMount(() => {
       const id = route.params.id;
@@ -317,11 +316,11 @@ export default defineComponent({
     };
     //#region Files
     const OriginalTitleDeedFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -336,11 +335,11 @@ export default defineComponent({
       });
     }
     const GreenLeafFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any = item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,
@@ -355,11 +354,11 @@ export default defineComponent({
       });
     }
     const CarCardFiles = (event) => {
-      
+
       const filesList = event.target.files;
       Array.from(filesList).forEach((item) => {
         const reader = new FileReader();
-        const file :any= item;
+        const file: any = item;
         reader.onloadend = () => {
           const newfile = {
             Type: file.type,

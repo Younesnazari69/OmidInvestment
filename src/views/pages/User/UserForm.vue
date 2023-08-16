@@ -92,6 +92,19 @@
                 </div>
               </div>
             </div>
+            <div class="col-xl-4">
+              <label class="form-label fw-bold text-dark fs-6">گروه</label>
+              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
+                v-model="Company">
+              </model-select>
+              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="companyID"
+                autocomplete="off" v-model="Company.value" hidden="true" />
+              <div class="fv-plugins-message-container">
+                <div class="fv-help-block">
+                  <ErrorMessage name="companyID" />
+                </div>
+              </div>
+            </div>
           </div>
           <div class="row fv-row mb-7">
             <div class="col-xl-4">
@@ -199,7 +212,8 @@ export default defineComponent({
     const submitButton = ref<HTMLButtonElement | null>(null);
     const CompanyList = ref([]);
     const Company = ref<any|object>({ value: null, text: "", });
-
+      const GroupList = ref([]);
+    const Group = ref<any|object>({ value: null, text: "", });
     //Create form validation object
     const UserModel = Yup.object().shape({
       id: Yup.number().label("id"),
@@ -211,6 +225,8 @@ export default defineComponent({
       jobTitle: Yup.string().label("jobTitle"),
       email: Yup.string().label("email").nullable(),
       companyID: Yup.string().label("companyID").nullable(),
+      groupID: Yup.string().label("groupID").nullable(),
+
     });
     onBeforeMount(() => {
       let Guid:string | string[] = route.params.guid;
@@ -226,6 +242,9 @@ export default defineComponent({
       });
       store.FechCompanys(serverOptions).then(() => {
         CompanyList.value = store.CompanysData.CompanyList;
+      });
+      store.FechGroups(serverOptions).then(() => {
+        GroupList.value = store.CompanysData.CompanyList;
       });
     });
     onMounted(() => {
@@ -297,6 +316,8 @@ export default defineComponent({
       userData,
       CompanyList,
       Company,
+      GroupList,
+      Group,
       ReternToList
     };
   },
