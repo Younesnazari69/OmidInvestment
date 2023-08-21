@@ -56,7 +56,7 @@ export default defineComponent({
     const FechData = async () => {
       loading.value = true;
       return store.FechFiles(serverOptions.value, type, id).then(() => {
-        items.value = store.FilesData.FilesList;
+        items.value = store.FilesData.List;
         serverItemsLength.value = store.FilesData.serverTotalItemsLength;
         loading.value = false;
       });

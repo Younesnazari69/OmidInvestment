@@ -1,6 +1,6 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg p-10">
+  <div class="w-sm p-10">
     <!--begin::Form-->
     <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin" :validation-schema="RegionModel"
       :initial-values="RegionData">
@@ -13,11 +13,11 @@
       <!--begin::Heading-->
       <div class="row fv-row mb-7">
         <!--begin::Col-->
-        <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="id"
+        <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="id"
           autocomplete="off" hidden="true" />
         <div class="col-xl-4">
           <label class="form-label fw-bold text-dark fs-6">نام</label>
-          <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="name"
+          <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="name"
             autocomplete="off" />
           <div class="fv-plugins-message-container">
             <div class="fv-help-block">
@@ -31,14 +31,14 @@
       <div class="text-center">
         <!--begin::Submit button-->
         <button tabindex="3" type="submit" ref="submitButton" id="kt_sign_in_submit"
-          class="btn btn-lg btn-success w-25 mb-5">
+          class="btn btn-sm btn-success w-25 mb-5">
           <span class="indicator-label"> ذخیره </span>
           <span class="indicator-progress">
             لطفا منتظر بمانید...
             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
         </button>
-        <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-primary w-25 mb-5">
+        <button tabindex="3" type="button" @click="ReternToList" class="btn btn-sm btn-primary w-25 mb-5">
           <span class="indicator-label"> بازگشت به لیست </span>
         </button>
         <!--end::Submit button-->

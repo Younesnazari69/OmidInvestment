@@ -1,6 +1,6 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg p-5">
+  <div class="w-sm p-5">
     <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin" :validation-schema="UserModel"
       :initial-values="userData">
       <div class="card shadow-sm">
@@ -9,7 +9,7 @@
             ورود به سیستم
           </h3>
           <div class="card-toolbar">
-            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-warning">
+            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-sm btn-warning">
               <span class="indicator-label"> بازگشت به لیست </span>
             </button>
           </div>
@@ -17,11 +17,11 @@
         <div class="card-body">
           <div class="row fv-row mb-7">
             <!--begin::Col-->
-            <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="id"
+            <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="id"
               autocomplete="off" hidden="true" />
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نام</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="firstname"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="firstname"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -34,7 +34,7 @@
             <!--begin::Col-->
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نام خانوادگی</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="lastname"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="lastname"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -46,7 +46,7 @@
             <!--begin::Col-->
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تلفن همراه</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="mobile"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="mobile"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -60,7 +60,7 @@
             <!--begin::Col-->
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">عنوان شغلی</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="jobTitle"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="jobTitle"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -71,7 +71,7 @@
             <!--end::Col-->
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">پست الکترونیک</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="email"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="email"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -81,23 +81,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شرکت</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="CompanyList"
                 v-model="Company">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="companyID"
-                autocomplete="off" v-model="Company.value" hidden="true" />
-              <div class="fv-plugins-message-container">
-                <div class="fv-help-block">
-                  <ErrorMessage name="companyID" />
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4">
-              <label class="form-label fw-bold text-dark fs-6">گروه</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
-                v-model="Company">
-              </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="companyID"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="companyID"
                 autocomplete="off" v-model="Company.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -108,8 +95,18 @@
           </div>
           <div class="row fv-row mb-7">
             <div class="col-xl-4">
+              <label class="form-label fw-bold text-dark fs-6">گروه</label>
+              <!-- <model-select class="form-control form-control-sm form-control-solid" :options="GroupList" v-model="Group">
+              </model-select> -->
+              <multi-select class="form-control form-control-sm form-control-solid" :options="GroupList"
+                :selected-options="Group" placeholder="select item" @select="onSelect">
+              </multi-select>
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="Groups"
+                autocomplete="off" hidden="true" />
+            </div>
+            <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نام کاربری</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="username"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="username"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -127,10 +124,9 @@
                   <!--begin::Label-->
                   <label class="form-label fw-bold text-dark fs-6"> کلمه عبور </label>
                   <!--end::Label-->
-
                   <!--begin::Input wrapper-->
                   <div class="position-relative mb-3">
-                    <Field class="form-control form-control-lg form-control-solid" type="password" placeholder=""
+                    <Field class="form-control form-control-sm form-control-solid" type="password" placeholder=""
                       name="password" autocomplete="off" />
                     <div class="fv-plugins-message-container">
                       <div class="fv-help-block">
@@ -151,7 +147,8 @@
                 <!--end::Wrapper-->
                 <!--begin::Hint-->
                 <div class="text-muted">
-                  Use 8 or more characters with a mix of letters, numbers & symbols.
+                  از 8 کاراکتر یا بیشتر و ترکیبی از حروف بزرگ،کوچک واعداد باشد
+                  <!-- Use 8 or more characters with a mix of letters, numbers & symbols. -->
                 </div>
                 <!--end::Hint-->
               </div>
@@ -167,7 +164,7 @@
           <div class="text-center">
             <!--begin::Submit button-->
             <button tabindex="3" type="submit" ref="submitButton" id="kt_sign_in_submit"
-              class="btn btn-lg btn-success w-25 mb-5">
+              class="btn btn-sm btn-success w-25 mb-5">
               <span class="indicator-label"> ذخیره </span>
               <span class="indicator-progress">
                 لطفا منتظر بمانید...
@@ -191,7 +188,8 @@ import { useDataStore } from "@/stores/Data";
 import { useRouter, useRoute } from "vue-router";
 import { PasswordMeterComponent } from "@/assets/ts/components";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import { ModelSelect } from "vue-search-select"
+import { ModelSelect, MultiSelect } from "vue-search-select"
+
 import type { ServerOptions } from "vue3-easy-data-table";
 
 import * as Yup from "yup";
@@ -202,18 +200,18 @@ export default defineComponent({
     Field,
     VForm,
     ErrorMessage,
-    ModelSelect
+    ModelSelect, MultiSelect
   },
   setup() {
     const store = useDataStore();
     const router = useRouter();
     const route = useRoute()
-    const userData = ref<any|object>({});
+    const userData = ref<any | object>({});
     const submitButton = ref<HTMLButtonElement | null>(null);
     const CompanyList = ref([]);
-    const Company = ref<any|object>({ value: null, text: "", });
-      const GroupList = ref([]);
-    const Group = ref<any|object>({ value: null, text: "", });
+    const Company = ref<any | object>({ value: null, text: "" });
+    const GroupList = ref([]);
+    const Group = ref<object[]>([]);
     //Create form validation object
     const UserModel = Yup.object().shape({
       id: Yup.number().label("id"),
@@ -225,15 +223,16 @@ export default defineComponent({
       jobTitle: Yup.string().label("jobTitle"),
       email: Yup.string().label("email").nullable(),
       companyID: Yup.string().label("companyID").nullable(),
-      groupID: Yup.string().label("groupID").nullable(),
+      //Groups: Yup.string().label("Groups").nullable(),
 
     });
     onBeforeMount(() => {
-      let Guid:string | string[] = route.params.guid;
+      let Guid: string | string[] = route.params.guid;
       if (Guid != 'null') {
         store.FechUser(Guid).then(() => {
-          ;
+          debugger
           userData.value = store.UserData;
+          Group.value= store.UserData.groups;
         });
       }
       const serverOptions = ref<ServerOptions>({
@@ -241,10 +240,10 @@ export default defineComponent({
         rowsPerPage: 0,
       });
       store.FechCompanys(serverOptions).then(() => {
-        CompanyList.value = store.CompanysData.CompanyList;
+        CompanyList.value = store.CompanysData.List;
       });
       store.FechGroups(serverOptions).then(() => {
-        GroupList.value = store.CompanysData.CompanyList;
+        GroupList.value = store.GroupsData.List;
       });
     });
     onMounted(() => {
@@ -252,6 +251,10 @@ export default defineComponent({
         PasswordMeterComponent.bootstrap();
       });
     });
+    function onSelect(items, lastSelectItem) {
+      Group.value = items
+      lastSelectItem = lastSelectItem
+    }
     //Form submit function
     const onSubmitLogin = async (values: any) => {
       //values = values as User;
@@ -262,7 +265,9 @@ export default defineComponent({
         // Activate indicator
         submitButton.value.setAttribute("data-kt-indicator", "on");
       }
+      debugger
       // Send login request
+      values.Groups = Group.value;
       await store.UpdateUser(values);
       const error = Object.values(store.errors);
 
@@ -318,6 +323,7 @@ export default defineComponent({
       Company,
       GroupList,
       Group,
+      onSelect,
       ReternToList
     };
   },

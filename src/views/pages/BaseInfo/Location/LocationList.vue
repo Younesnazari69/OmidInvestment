@@ -4,13 +4,19 @@
   </button>
   <EasyDataTable v-model:server-options="serverOptions" :headers="headers" :items="items"
     :server-items-length="serverItemsLength" :loading="loading" buttons-pagination>
+    <template #header-operation="header">
+      <!-- {{ header.text }} -->
+      <button @click="AddItem" class="btn btn-sm btn-success ">
+        <FlAddSquare />
+      </button>
+    </template>
     <template #item-operation="item">
       <div class="operation-wrapper">
-        <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
-          <BsTrash />
-        </button>
         <button @click="editItem(item.id)" class="btn btn-sm btn-primary">
           <AkEdit />
+        </button>
+        <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
+          <BsTrash />
         </button>
       </div>
     </template>
@@ -53,7 +59,7 @@ export default defineComponent({
       //const { page, rowsPerPage, sortBy, sortType } = serverOptions.value;
       loading.value = true;
       return store.FechLocations(serverOptions.value).then(() => {
-        items.value = store.LocationsData.LocationList;
+        items.value = store.LocationsData.List;
         serverItemsLength.value = store.LocationsData.serverTotalItemsLength;
         loading.value = false;
       });

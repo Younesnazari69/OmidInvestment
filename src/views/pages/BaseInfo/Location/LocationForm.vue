@@ -1,6 +1,6 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg p-5">
+  <div class="w-sm p-5">
     <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin" :validation-schema="LocationModel"
       :initial-values="LocationData">
       <div class="card shadow-sm">
@@ -9,7 +9,7 @@
             ورود به سیستم
           </h3>
           <div class="card-toolbar">
-            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-warning">
+            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-sm btn-warning">
               <span class="indicator-label"> بازگشت به لیست </span>
             </button>
           </div>
@@ -18,11 +18,11 @@
           <!--begin::Heading-->
           <div class="row fv-row mb-7">
             <!--begin::Col-->
-            <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="id"
+            <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="id"
               autocomplete="off" hidden="true" />
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نام</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="name"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="name"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -35,7 +35,7 @@
             <!--begin::Col-->
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">کد</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="code"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="code"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -47,7 +47,7 @@
             <!--begin::Col-->
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">سطح</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="levelId"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="levelId"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -63,10 +63,10 @@
 
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">کشور</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="RegionList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="RegionList"
                 v-model="region">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="regionId"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="regionId"
                 autocomplete="off" v-model="region.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -76,10 +76,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">والد</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="LocationList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="LocationList"
                 v-model="parent">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="parentId"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="parentId"
                 autocomplete="off" v-model="parent.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -97,7 +97,7 @@
           <div class="text-center">
             <!--begin::Submit button-->
             <button tabindex="3" type="submit" ref="submitButton" id="kt_sign_in_submit"
-              class="btn btn-lg btn-success w-25 mb-5">
+              class="btn btn-sm btn-success w-25 mb-5">
               <span class="indicator-label"> ذخیره </span>
               <span class="indicator-progress">
                 لطفا منتظر بمانید...
@@ -173,10 +173,10 @@ export default defineComponent({
         rowsPerPage: 0,
       });
       store.FechRegions(serverOptions).then(() => {
-        RegionList.value = store.RegionsData.RegionList;
+        RegionList.value = store.RegionsData.List;
       });
       store.FechLocations(serverOptions).then(() => {
-        LocationList.value = store.LocationsData.LocationList;
+        LocationList.value = store.LocationsData.List;
       });
     });
     //Form submit function

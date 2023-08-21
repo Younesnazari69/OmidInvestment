@@ -1,6 +1,6 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg p-5">
+  <div class="w-sm p-5">
     <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin"
       :validation-schema="EquipmentAndMachineryModel" :initial-values="EquipmentAndMachineryData">
       <div class="card shadow-sm">
@@ -9,7 +9,7 @@
             ماشین آلات و تجهیزات
           </h3>
           <div class="card-toolbar">
-            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-warning">
+            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-sm btn-warning">
               <span class="indicator-label"> بازگشت به لیست </span>
             </button>
           </div>
@@ -18,14 +18,14 @@
           <!--begin::Heading-->
           <div class="row fv-row mb-7">
             <!--begin::Col-->
-            <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="id"
+            <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="id"
               autocomplete="off" hidden="true" />
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شرکت</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="CompanyList"
                 v-model="Company" isDisabled="true">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="companyID"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="companyID"
                 autocomplete="off" v-model="Company.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -35,7 +35,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">مورد ارزیابی_تجهیزات ماشین آلات / تاسیسات </label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="inspection"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="inspection"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -45,10 +45,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">استان</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="ProvinceList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="ProvinceList"
                 v-model="Province">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="provinceID"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="provinceID"
                 autocomplete="off" v-model="Province.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -58,9 +58,9 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شهر</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CityList" v-model="City">
+              <model-select class="form-control form-control-sm form-control-solid" :options="CityList" v-model="City">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="cityID"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="cityID"
                 autocomplete="off" v-model="City.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -70,7 +70,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">منطقه شهرداری</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="municipalArea" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -80,7 +80,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">ناحیه شهرداری</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="regionalMunicipality" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -90,7 +90,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تلفن همراه نماینده</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="representativeMobile" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -100,7 +100,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نماینده شرکت ( مالک ) جهت بازدید</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="companyRepresentative_owner_ToVisit" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -110,7 +110,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">آدرس</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="address"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="address"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -120,27 +120,27 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6"> صورت ریز دارایی های ثابت شرکت</label>
-              <input class="form-control form-control-lg form-control-solid" type="file" @change="StatementOfAssetsFiles"
+              <input class="form-control form-control-sm form-control-solid" type="file" @change="StatementOfAssetsFiles"
                 multiple="true" />
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">کد محل استقرار ، مرکز هزینه ، کد مرکز هزینه</label>
-              <input class="form-control form-control-lg form-control-solid" type="file" @change="LocationCodeFiles"
+              <input class="form-control form-control-sm form-control-solid" type="file" @change="LocationCodeFiles"
                 multiple="true" />
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">صورت ریز موجودی قطعات یدکی</label>
-              <input class="form-control form-control-lg form-control-solid" type="file"
+              <input class="form-control form-control-sm form-control-solid" type="file"
                 @change="InventoryOfSparePartsFiles" multiple="true" />
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">کلیه مجوزها و پروانه های اخذ شده</label>
-              <input class="form-control form-control-lg form-control-solid" type="file"
+              <input class="form-control form-control-sm form-control-solid" type="file"
                 @change="AllLicensesAndPermitsObtainedFiles" multiple="true" />
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">سایر فایل ها</label>
-              <input class="form-control form-control-lg form-control-solid" type="file" @change="ImageOfAllBillsFiles"
+              <input class="form-control form-control-sm form-control-solid" type="file" @change="ImageOfAllBillsFiles"
                 multiple="true" />
             </div>
             <!-- <img :src="UploudFile"> -->
@@ -155,7 +155,7 @@
           <div class="text-center">
             <!--begin::Submit button-->
             <button tabindex="3" type="submit" ref="submitButton" id="kt_sign_in_submit"
-              class="btn btn-lg btn-success w-25 mb-5">
+              class="btn btn-sm btn-success w-25 mb-5">
               <span class="indicator-label"> ذخیره </span>
               <span class="indicator-progress">
                 لطفا منتظر بمانید...
@@ -180,6 +180,7 @@ import { useAuthStore } from "@/stores/auth";
 import { useRouter, useRoute } from "vue-router";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { ModelSelect } from "vue-search-select"
+
 import type { ServerOptions } from "vue3-easy-data-table";
 
 import * as Yup from "yup";
@@ -239,11 +240,11 @@ export default defineComponent({
         rowsPerPage: 0,
       });
       store.FechLocations(serverOptions).then(() => {
-        ProvinceList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 1; });
-        CityList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 2; });
+        ProvinceList.value = store.LocationsData.List.filter((obj) => { return obj.levelId == 1; });
+        CityList.value = store.LocationsData.List.filter((obj) => { return obj.levelId == 2; });
       });
       store.FechCompanys(serverOptions).then(() => {
-        CompanyList.value = store.CompanysData.CompanyList;
+        CompanyList.value = store.CompanysData.List;
       });
     });
 
@@ -304,7 +305,7 @@ export default defineComponent({
     };
     //#endregion
     watch(Province, () => {
-      CityList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 2 && obj.parentId == Province.value.value; });
+      CityList.value = store.LocationsData.List.filter((obj) => { return obj.levelId == 2 && obj.parentId == Province.value.value; });
     });
 
     const ReternToList = () => {

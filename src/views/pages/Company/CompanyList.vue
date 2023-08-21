@@ -1,9 +1,12 @@
 <template>
-  <button @click="AddItem" class="btn btn-sm btn-success ">
-    <FlAddSquare />
-  </button>
   <EasyDataTable v-model:server-options="serverOptions" :headers="headers" :items="items"
     :server-items-length="serverItemsLength" :loading="loading" buttons-pagination>
+    <template #header-operation="header">
+      <!-- {{ header.text }} -->
+      <button @click="AddItem" class="btn btn-sm btn-success ">
+        <FlAddSquare />
+      </button>
+    </template>
     <template #item-operation="item">
       <div class="operation-wrapper">
         <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
@@ -58,7 +61,7 @@ export default defineComponent({
       //const { page, rowsPerPage, sortBy, sortType } = serverOptions.value;
       loading.value = true;
       return store.FechCompanys(serverOptions.value).then(() => {
-        items.value = store.CompanysData.CompanyList;
+        items.value = store.CompanysData.List;
         serverItemsLength.value = store.CompanysData.serverTotalItemsLength;
         loading.value = false;
       });
@@ -70,10 +73,10 @@ export default defineComponent({
     };
 
     const editItem = (val: string) => {
-      router.push({ name: "CompanyForm" , params: { id: val }});
+      router.push({ name: "CompanyForm", params: { id: val } });
     };
     const AddItem = () => {
-      router.push({ name: "CompanyForm" , params: { id: "null" }});
+      router.push({ name: "CompanyForm", params: { id: "null" } });
     };
 
     // initial load

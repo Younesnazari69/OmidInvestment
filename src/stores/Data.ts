@@ -68,7 +68,7 @@ export const useDataStore = defineStore("Data", () => {
   //#region Region
   function SetRegionList(data: any) {
     RegionsData.value = {
-      RegionList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -132,7 +132,7 @@ export const useDataStore = defineStore("Data", () => {
   //#region User 
   function SetAllUserList(data: any) {
     AllUsersData.value = {
-      AllUserList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -143,26 +143,23 @@ export const useDataStore = defineStore("Data", () => {
     UserData.value = data.data;
     errors.value = data.errors;
   }
-  const FechAllUsers = async (serverOptions: ServerOptions, filter: any) => {
-    // const { page, rowsPerPage, sortBy, sortType } = serverOptions;
-    // const { Firstname, Lastname } = filter;
-    debugger
-    const Filter = { page: serverOptions.page,
-      Number: serverOptions.rowsPerPage, 
-      sortBy: serverOptions.sortBy, 
-      sortType: serverOptions.sortType,
-      searchfield:filter.value.searchField,
-      searchvalue:filter.value.searchValue
-       }
-
-    //if (sortBy && sortType) {
-      return await ApiService.post(`/User/GetAllUsers`,Filter)
-        .then(({ data }) => {
-          SetAllUserList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
+  const FechAllUsers = async (serverOptions: ServerOptions, filter: any,ResultType:string) => {
+    const Filter = {
+      Page: serverOptions.page,
+      Number: serverOptions.rowsPerPage,
+      SortBy: serverOptions.sortBy,
+      SortType: serverOptions.sortType,
+      Searchfield: filter.value.searchFields,
+      Searchvalue: filter.value.searchValue,
+      ResultType:ResultType
+    }
+    return await ApiService.post(`/User/GetAllUsers`, Filter)
+      .then(({ data }) => {
+        SetAllUserList(data);
+      })
+      .catch(({ response }) => {
+        setError(response.data.errors);
+      });
     // } else {
     //   return await ApiService.get(`/User/GetAllUsers/${page}&${rowsPerPage}&${" "}&${" "}`)
     //     .then(({ data }) => {
@@ -209,7 +206,7 @@ export const useDataStore = defineStore("Data", () => {
   //#region Location 
   function SetLocationList(data: any) {
     LocationsData.value = {
-      LocationList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -274,9 +271,10 @@ export const useDataStore = defineStore("Data", () => {
   //#region Company 
   function SetCompanyList(data: any) {
     CompanysData.value = {
-      CompanyList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
+      exportToExcellFileUrl: data.exportToExcellFileUrl,
     };
     errors.value = data.errors;
   }
@@ -340,7 +338,7 @@ export const useDataStore = defineStore("Data", () => {
 
   function SetCompanyLevelList(data: any) {
     CompanyLevelsData.value = {
-      CompanyLevelList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -369,7 +367,7 @@ export const useDataStore = defineStore("Data", () => {
 
   function SetCompanystatusList(data: any) {
     CompanystatusData.value = {
-      CompanystatusList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -397,7 +395,7 @@ export const useDataStore = defineStore("Data", () => {
   };
   function SetCompanyTypesList(data: any) {
     CompanyTypesData.value = {
-      CompanyTypeList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -426,7 +424,7 @@ export const useDataStore = defineStore("Data", () => {
 
   function SetIndustryTypesList(data: any) {
     IndustryTypesData.value = {
-      IndustryTypeList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -454,7 +452,7 @@ export const useDataStore = defineStore("Data", () => {
   };
   function SetMarketTypesList(data: any) {
     MarketTypesData.value = {
-      MarketTypeList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -485,9 +483,11 @@ export const useDataStore = defineStore("Data", () => {
   function SetEquipmentAndMachineryList(data: any) {
 
     EquipmentAndMachinerysData.value = {
-      EquipmentAndMachineryList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
+      exportToExcellFileUrl: data.exportToExcellFileUrl,
+
     };
     errors.value = data.errors;
   }
@@ -495,25 +495,24 @@ export const useDataStore = defineStore("Data", () => {
     EquipmentAndMachineryData.value = data.data;
     errors.value = data.errors;
   }
-  const FechEquipmentAndMachinerys = async (serverOptions: ServerOptions) => {
-    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
-    if (sortBy && sortType) {
-      return await ApiService.get(`/Forms/GetEquipmentAndMachinerys/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
-        .then(({ data }) => {
-          SetEquipmentAndMachineryList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
-    } else {
-      return await ApiService.get(`/Forms/GetEquipmentAndMachinerys/${page}&${rowsPerPage}&${" "}&${" "}`)
-        .then(({ data }) => {
-          SetEquipmentAndMachineryList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
+  const FechEquipmentAndMachinerys = async (serverOptions: ServerOptions, filter: any,ResultType:string) => {
+    const Filter = {
+      Page: serverOptions.page,
+      Number: serverOptions.rowsPerPage,
+      SortBy: serverOptions.sortBy,
+      SortType: serverOptions.sortType,
+      Searchfield: filter.value.searchFields,
+      Searchvalue: filter.value.searchValue,
+      ResultType:ResultType
     }
+    return await ApiService.post(`/Forms/GetEquipmentAndMachinerys`, Filter)
+      .then(({ data }) => {
+        SetEquipmentAndMachineryList(data);
+      })
+      .catch(({ response }) => {
+        setError(response.data.errors);
+      });
+
   };
   const FechEquipmentAndMachinery = async (id: string | string[]) => {
 
@@ -552,9 +551,10 @@ export const useDataStore = defineStore("Data", () => {
   function SetRealEstateList(data: any) {
 
     RealEstatesData.value = {
-      RealEstateList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
+      exportToExcellFileUrl: data.exportToExcellFileUrl,
     };
     errors.value = data.errors;
   }
@@ -563,25 +563,23 @@ export const useDataStore = defineStore("Data", () => {
     RealEstateData.value = data.data;
     errors.value = data.errors;
   }
-  const FechRealEstates = async (serverOptions: ServerOptions) => {
-    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
-    if (sortBy && sortType) {
-      return await ApiService.get(`/Forms/GetRealEstates/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
-        .then(({ data }) => {
-          SetRealEstateList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
-    } else {
-      return await ApiService.get(`/Forms/GetRealEstates/${page}&${rowsPerPage}&${" "}&${" "}`)
-        .then(({ data }) => {
-          SetRealEstateList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
+  const FechRealEstates = async (serverOptions: ServerOptions,filter: any,ResultType:string) => {
+    const Filter = {
+      Page: serverOptions.page,
+      Number: serverOptions.rowsPerPage,
+      SortBy: serverOptions.sortBy,
+      SortType: serverOptions.sortType,
+      Searchfield: filter.value.searchFields,
+      Searchvalue: filter.value.searchValue,
+      ResultType:ResultType
     }
+      return await ApiService.post(`/Forms/GetRealEstates`,Filter)
+        .then(({ data }) => {
+          SetRealEstateList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
   };
   const FechRealEstate = async (id: string | string[]) => {
 
@@ -620,9 +618,11 @@ export const useDataStore = defineStore("Data", () => {
   function SetVehicleList(data: any) {
 
     VehiclesData.value = {
-      VehicleList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
+      exportToExcellFileUrl: data.exportToExcellFileUrl,
+
     };
     errors.value = data.errors;
   }
@@ -630,25 +630,24 @@ export const useDataStore = defineStore("Data", () => {
     VehicleData.value = data.data;
     errors.value = data.errors;
   }
-  const FechVehicles = async (serverOptions: ServerOptions) => {
-    const { page, rowsPerPage, sortBy, sortType } = serverOptions;
-    if (sortBy && sortType) {
-      return await ApiService.get(`/Forms/GetVehicles/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
-        .then(({ data }) => {
-          SetVehicleList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
-    } else {
-      return await ApiService.get(`/Forms/GetVehicles/${page}&${rowsPerPage}&${" "}&${" "}`)
-        .then(({ data }) => {
-          SetVehicleList(data);
-        })
-        .catch(({ response }) => {
-          setError(response.data.errors);
-        });
+  const FechVehicles = async (serverOptions: ServerOptions,filter: any,ResultType:string) => {
+    const Filter = {
+      Page: serverOptions.page,
+      Number: serverOptions.rowsPerPage,
+      SortBy: serverOptions.sortBy,
+      SortType: serverOptions.sortType,
+      Searchfield: filter.value.searchFields,
+      Searchvalue: filter.value.searchValue,
+      ResultType:ResultType
     }
+      return await ApiService.post(`/Forms/GetVehicles`,Filter)
+        .then(({ data }) => {
+          SetVehicleList(data);
+        })
+        .catch(({ response }) => {
+          setError(response.data.errors);
+        });
+    
   };
   const FechVehicle = async (id: string | string[]) => {
 
@@ -688,7 +687,7 @@ export const useDataStore = defineStore("Data", () => {
   function SetFilesList(data: any) {
 
     FilesData.value = {
-      FilesList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -735,10 +734,10 @@ export const useDataStore = defineStore("Data", () => {
 
   };
   //#endregion
-  //#region Company 
+  //#region Group 
   function SetGroupList(data: any) {
     GroupsData.value = {
-      GroupList: data.data,
+      List: data.data,
       serverCurrentPageItems: data.page,
       serverTotalItemsLength: data.count,
     };
@@ -747,17 +746,17 @@ export const useDataStore = defineStore("Data", () => {
   const FechGroups = async (serverOptions: any | ServerOptions) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
-      return await ApiService.get(`/Group/GetGroups/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
+      return await ApiService.get(`/User/GetGroups/${page}&${rowsPerPage}&${sortBy}&${sortType}`)
         .then(({ data }) => {
-          SetCompanyLevelList(data);
+          SetGroupList(data);
         })
         .catch(({ response }) => {
           setError(response.data.errors);
         });
     } else {
-      return await ApiService.get(`/Group/GetGroups/${page}&${rowsPerPage}&${" "}&${" "}`)
+      return await ApiService.get(`/User/GetGroups/${page}&${rowsPerPage}&${" "}&${" "}`)
         .then(({ data }) => {
-          SetCompanyLevelList(data);
+          SetGroupList(data);
         })
         .catch(({ response }) => {
           setError(response.data.errors);

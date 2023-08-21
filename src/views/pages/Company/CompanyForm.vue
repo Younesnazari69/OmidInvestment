@@ -1,6 +1,6 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg p-5">
+  <div class="w-sm p-5">
     <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin" :validation-schema="CompanyModel"
       :initial-values="CompanyData">
       <div class="card shadow-sm">
@@ -9,7 +9,7 @@
             ورود به سیستم
           </h3>
           <div class="card-toolbar">
-            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-lg btn-warning">
+            <button tabindex="3" type="button" @click="ReternToList" class="btn btn-sm btn-warning">
               <span class="indicator-label"> بازگشت به لیست </span>
             </button>
           </div>
@@ -17,11 +17,11 @@
         <div class="card-body">
           <!--begin::Heading-->
           <div class="row fv-row mb-7">
-            <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="id"
+            <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="id"
               autocomplete="off" hidden="true" />
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نام شرکت</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="companyName"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="companyName"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -32,7 +32,7 @@
 
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شناسه ملی</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="nationalCode" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -43,7 +43,7 @@
 
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">موضوع فعالیت</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="activitySubject" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -54,7 +54,7 @@
 
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">ظرفیت</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="capital"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="capital"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -64,10 +64,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شرکت مادر</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="CompanyList"
                 v-model="Company">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="companyFatherID" autocomplete="off" v-model="Company.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -77,10 +77,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">هلدینگ </label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="CompanyList"
                 v-model="Company">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="holdingID"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="holdingID"
                 autocomplete="off" v-model="Company.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -90,10 +90,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">سطح شرکت</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyLevelList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="CompanyLevelList"
                 v-model="CompanyLevel">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="companyLevelID" autocomplete="off" v-model="CompanyLevel.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -103,10 +103,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">وضعیت</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanystatusList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="CompanystatusList"
                 v-model="Companystatus">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="companystatusID" autocomplete="off" v-model="Companystatus.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -116,10 +116,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نوع شرکت</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="CompanyTypeList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="CompanyTypeList"
                 v-model="CompanyType">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="companyTypeID" autocomplete="off" v-model="CompanyType.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -130,7 +130,7 @@
 
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">مختصات آدرس</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="coordinatesAddress" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -142,7 +142,7 @@
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تاریخ پذیرش</label>
               <date-picker v-model="dateOfAcceptance" auto-submit />
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="dateOfAcceptance" autocomplete="off" v-model="dateOfAcceptance" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -152,7 +152,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">توضیحات</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="description"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="description"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -162,7 +162,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">سال تاسیس </label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="establishmentYear" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -172,7 +172,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">آدرس کارخانه</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="factoryAddress" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -182,7 +182,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تلفن کارخانه</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="factoryPhoneNumber" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -192,7 +192,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">بورسی است</label>
-              <div class="form-control form-control-lg form-control-solid">
+              <div class="form-control form-control-sm form-control-solid">
                 <Field name="hasBourse" type="checkbox" :value="false" />
               </div>
               <div class="fv-plugins-message-container">
@@ -203,7 +203,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">آدرس دفتر مرکزی</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="headOfficeAddress" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -213,7 +213,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">تلفن دفتر مرکزی</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="headOfficePhoneNumber" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -223,10 +223,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">صنعت</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="IndustryTypeList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="IndustryTypeList"
                 v-model="IndustryType">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="industryTypeID" autocomplete="off" v-model="IndustryType.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -236,10 +236,10 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نوع بازار</label>
-              <model-select class="form-control form-control-lg form-control-solid" :options="MarketTypeList"
+              <model-select class="form-control form-control-sm form-control-solid" :options="MarketTypeList"
                 v-model="MarketType">
               </model-select>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="marketTypeId" autocomplete="off" v-model="MarketType.value" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -249,8 +249,8 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">ماه شروع دوره مالی</label>
-              <date-picker v-model="monthStartFiscalYear" auto-submit />
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <date-picker v-model="monthStartFiscalYear" auto-submit/>
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="monthStartFiscalYear" autocomplete="off" v-model="monthStartFiscalYear" hidden="true" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -260,7 +260,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">درصد مالکیت هلدینگ </label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="ownershipPercentage" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -270,7 +270,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">شماره ثبت</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder=""
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
                 name="registerNumber" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -280,7 +280,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">آدرس سایت</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="site"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="site"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -290,7 +290,7 @@
             </div>
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نماد بورسی</label>
-              <Field class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="symbol"
+              <Field class="form-control form-control-sm form-control-solid" type="text" placeholder="" name="symbol"
                 autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
@@ -304,7 +304,7 @@
           <div class="text-center">
             <!--begin::Submit button-->
             <button tabindex="3" type="submit" ref="submitButton" id="kt_sign_in_submit"
-              class="btn btn-lg btn-success w-25 mb-5">
+              class="btn btn-sm btn-success w-25 mb-5">
               <span class="indicator-label"> ذخیره </span>
               <span class="indicator-progress">
                 لطفا منتظر بمانید...
@@ -403,22 +403,22 @@ export default defineComponent({
         rowsPerPage: 0,
       });
       store.FechCompanys(serverOptions).then(() => {
-        CompanyList.value = store.CompanysData.CompanyList;
+        CompanyList.value = store.CompanysData.List;
       });
       store.FechCompanyLevels(serverOptions).then(() => {
-        CompanyLevelList.value = store.CompanyLevelsData.CompanyLevelList;
+        CompanyLevelList.value = store.CompanyLevelsData.List;
       });
       store.FechCompanystatus(serverOptions).then(() => {
-        CompanystatusList.value = store.CompanystatusData.CompanystatusList;
+        CompanystatusList.value = store.CompanystatusData.List;
       });
       store.FechCompanyTypes(serverOptions).then(() => {
-        CompanyTypeList.value = store.CompanyTypesData.CompanyTypeList;
+        CompanyTypeList.value = store.CompanyTypesData.List;
       });
       store.FechIndustryTypes(serverOptions).then(() => {
-        IndustryTypeList.value = store.IndustryTypesData.IndustryTypeList;
+        IndustryTypeList.value = store.IndustryTypesData.List;
       });
       store.FechMarketTypes(serverOptions).then(() => {
-        MarketTypeList.value = store.MarketTypesData.MarketTypeList;
+        MarketTypeList.value = store.MarketTypesData.List;
       });
     });
     //Form submit function

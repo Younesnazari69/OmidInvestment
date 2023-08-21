@@ -1,16 +1,19 @@
 <template>
-    <button @click="AddItem" class="btn btn-sm btn-success ">
-      <FlAddSquare />
-    </button>
     <EasyDataTable v-model:server-options="serverOptions" :headers="headers" :items="items"
       :server-items-length="serverItemsLength" :loading="loading" buttons-pagination>
+      <template #header-operation="header">
+      <!-- {{ header.text }} -->
+      <button @click="AddItem" class="btn btn-sm btn-success ">
+        <FlAddSquare />
+      </button>
+    </template>
       <template #item-operation="item">
         <div class="operation-wrapper">
-          <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
-            <BsTrash />
-          </button>
           <button @click="editItem(item.id)" class="btn btn-sm btn-primary">
             <AkEdit />
+          </button>
+          <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
+            <BsTrash />
           </button>
         </div>
       </template>
@@ -48,7 +51,7 @@
       const FechData= async () => {
         loading.value = true;
         return store.FechRegions(serverOptions.value).then(() => {
-          items.value = store.RegionsData.RegionList;
+          items.value = store.RegionsData.List;
           serverItemsLength.value = store.RegionsData.serverTotalItemsLength;
           loading.value = false;
         });
