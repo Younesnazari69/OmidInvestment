@@ -121,10 +121,10 @@
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نماینده شرکت ( مالک ) جهت بازدید</label>
               <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
-                name="companyRepresentative_owner_ToVisit" autocomplete="off" />
+                name="companyRepresentative_Owner_ToVisit" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="companyRepresentative_owner_ToVisit" />
+                  <ErrorMessage name="companyRepresentative_Owner_ToVisit" />
                 </div>
               </div>
             </div>
@@ -223,7 +223,7 @@ export default defineComponent({
       cityID: Yup.number().required("انتخاب شهر الزامیست").label("cityID"),
       ownerName: Yup.string().required("نام مالک الزامیست").label("ownerName"),
       representativeMobile: Yup.string().matches(/^(\+98|0)?9\d{9}$/, "تلفن همراه صحیح نیست").required("تلفن همراه نماینده الزامیست").label("representativeMobile"),
-      companyRepresentative_owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_owner_ToVisit"),
+      companyRepresentative_Owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_Owner_ToVisit"),
       vehicleType: Yup.string().required("نوع وسیله نقلیه الزامیست").label("vehicleType"),
       policeLicensePlate: Yup.string().required("شماره پلاک الزامیست").label("policeLicensePlate"),//.matches(/(ایران)?(\d{2})(?:-|,| )(\d{3})([ آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]{1})(\d{2})/, "شماره پلاک صحیح نیست")
       address: Yup.string().required("آدرس الزامیست").label("address"),

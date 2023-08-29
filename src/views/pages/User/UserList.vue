@@ -179,6 +179,8 @@ export default defineComponent({
     const loading = ref<Boolean>(false);
     const serverItemsLength = ref<Number>(0);
     const serverOptions = ref<ServerOptions>({ page: 1, rowsPerPage: 10, });
+      const serverOptionsForSelects = ref<ServerOptions>({ page: 0, rowsPerPage: 0, });
+
     const DefaultsearchValue = {
       firstname: { value: '', oparation: '' },
       lastname: { value: '', oparation: '' },

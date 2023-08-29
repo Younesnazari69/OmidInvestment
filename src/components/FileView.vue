@@ -6,16 +6,19 @@
     </a>
   </div>
   <div v-else>
-    <button  id="kt_sign_in_submit" class="btn btn-sm btn-success" data-kt-indicator="on">
-      <span class="indicator-progress">
-        درحال بارگذاری...
-        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-      </span>
-    </button>
-    <!-- <span class="indicator-progress" data-kt-indicator="on">
-      درحال بارگذاری...
-      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-    </span> -->
+    <a v-if="url != ''" :href="url" :download="Item.formFileType" target="_blank" rel="noopener noreferrer">
+      <button class="btn btn-sm btn btn-light-info">
+        <McFileDownloadLine />
+      </button>
+    </a>
+    <a v-else href="#">
+      <button id="kt_sign_in_submit" class="btn btn-sm btn btn-light-info" data-kt-indicator="on">
+        <span class="indicator-progress">
+          درحال بارگذاری...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </button>
+    </a>
   </div>
 
   <!-- <div v-if="Item.contentType == 'application/pdf'">
@@ -24,11 +27,6 @@
       <VsFileTypePdf :width=" 200 " />
     </a>
   </div> -->
-  <a v-if="url != ''" :href="url" :download="Item.formFileType" target="_blank" rel="noopener noreferrer">
-    <button class="btn btn-sm btn-success ">
-      <McFileDownloadLine />
-    </button>
-  </a>
 </template>
 
 <script lang="ts">

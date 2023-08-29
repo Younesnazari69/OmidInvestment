@@ -143,7 +143,7 @@ export const useDataStore = defineStore("Data", () => {
     UserData.value = data.data;
     errors.value = data.errors;
   }
-  const FechAllUsers = async (serverOptions: ServerOptions, filter: any,ResultType:string) => {
+  const FechAllUsers = async (serverOptions: ServerOptions|any, filter: any,ResultType:string) => {
     const Filter = {
       Page: serverOptions.page,
       Number: serverOptions.rowsPerPage,
@@ -495,7 +495,7 @@ export const useDataStore = defineStore("Data", () => {
     EquipmentAndMachineryData.value = data.data;
     errors.value = data.errors;
   }
-  const FechEquipmentAndMachinerys = async (serverOptions: ServerOptions, filter: any,ResultType:string) => {
+  const FechEquipmentAndMachinerys = async (serverOptions: ServerOptions|any, filter: any,ResultType:string) => {
     const Filter = {
       Page: serverOptions.page,
       Number: serverOptions.rowsPerPage,
@@ -563,7 +563,7 @@ export const useDataStore = defineStore("Data", () => {
     RealEstateData.value = data.data;
     errors.value = data.errors;
   }
-  const FechRealEstates = async (serverOptions: ServerOptions,filter: any,ResultType:string) => {
+  const FechRealEstates = async (serverOptions: ServerOptions|any,filter: any,ResultType:string) => {
     const Filter = {
       Page: serverOptions.page,
       Number: serverOptions.rowsPerPage,
@@ -630,7 +630,7 @@ export const useDataStore = defineStore("Data", () => {
     VehicleData.value = data.data;
     errors.value = data.errors;
   }
-  const FechVehicles = async (serverOptions: ServerOptions,filter: any,ResultType:string) => {
+  const FechVehicles = async (serverOptions: ServerOptions|any,filter: any,ResultType:string) => {
     const Filter = {
       Page: serverOptions.page,
       Number: serverOptions.rowsPerPage,
@@ -693,7 +693,7 @@ export const useDataStore = defineStore("Data", () => {
     };
     errors.value = data.errors;
   }
-  const FechFiles = async (serverOptions: ServerOptions, FormType, FormId) => {
+  const FechFiles = async (serverOptions: ServerOptions|any, FormType, FormId) => {
     const { page, rowsPerPage, sortBy, sortType } = serverOptions;
     if (sortBy && sortType) {
       return await ApiService.get(`/Forms/GetFiles/${FormType}&${FormId}&${page}&${rowsPerPage}&${sortBy}&${sortType}`)

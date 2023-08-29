@@ -151,10 +151,10 @@
             <div class="col-xl-4">
               <label class="form-label fw-bold text-dark fs-6">نماینده شرکت ( مالک ) جهت بازدید</label>
               <Field class="form-control form-control-sm form-control-solid" type="text" placeholder=""
-                name="companyRepresentative_owner_ToVisit" autocomplete="off" />
+                name="companyRepresentative_Owner_ToVisit" autocomplete="off" />
               <div class="fv-plugins-message-container">
                 <div class="fv-help-block">
-                  <ErrorMessage name="companyRepresentative_owner_ToVisit" />
+                  <ErrorMessage name="companyRepresentative_Owner_ToVisit" />
                 </div>
               </div>
             </div>
@@ -272,7 +272,7 @@ export default defineComponent({
       totalArea: Yup.number().required("متراژ کل الزامیست").label("totalArea"),
       area: Yup.number().required("مساحت الزامیست").label("area"),
       representativeMobile: Yup.string().matches(/^(\+98|0)?9\d{9}$/, "تلفن همراه صحیح نیست").required("تلفن همراه نماینده الزامیست").label("representativeMobile"),
-      companyRepresentative_owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_owner_ToVisit"),
+      companyRepresentative_Owner_ToVisit: Yup.string().required("نماینده شرکت ( مالک ) جهت بازدید الزامیست").label("companyRepresentative_Owner_ToVisit"),
       address: Yup.string().required("آدرس الزامیست").label("address"),
       municipalArea: Yup.string().label("municipalArea").nullable(),
       regionalMunicipality: Yup.string().label("regionalMunicipality").nullable(),

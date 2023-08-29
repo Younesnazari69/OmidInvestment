@@ -102,12 +102,12 @@
               </div>
             </div>
           </div>
-          <div v-if="searchFields.value == 'CompanyRepresentative_owner_ToVisit'" class="col-xl-3">
+          <div v-if="searchFields.value == 'CompanyRepresentative_Owner_ToVisit'" class="col-xl-3">
             <label class="form-label fw-bold text-dark fs-6">نماینده</label>
             <div class="row">
               <div class="col-xl-2">
                 <select class="form-control form-control-sm form-control-solid" name="V-Oparation"
-                  v-model="filter.searchValue.CompanyRepresentative_owner_ToVisit.oparation">
+                  v-model="filter.searchValue.CompanyRepresentative_Owner_ToVisit.oparation">
                   <option value="in">in</option>
                   <option value="="> = </option>
                   <option value="!="> != </option>
@@ -115,8 +115,8 @@
               </div>
               <div class="col-xl-10">
                 <input class="form-control form-control-sm form-control-solid" type="text" placeholder=""
-                  name="companyRepresentative_owner_ToVisit"
-                  v-model="filter.searchValue.CompanyRepresentative_owner_ToVisit.value" autocomplete="off" />
+                  name="companyRepresentative_Owner_ToVisit"
+                  v-model="filter.searchValue.CompanyRepresentative_Owner_ToVisit.value" autocomplete="off" />
               </div>
             </div>
           </div>
@@ -145,8 +145,8 @@
       <button @click="AddItem" class="btn btn-sm btn-success ">
         <FlAddSquare />
       </button>
-      <button @click="ExportToExcell" class="btn btn-sm btn-primary ">
-        <ReFileExcel2Line  />
+      <button @click="ExportToExcell" class="btn btn-sm btn-info">
+        <ReFileExcel2Line />
       </button>
     </template>
     <template #item-operation="item">
@@ -157,7 +157,7 @@
         <button @click="deleteItem(item.id)" class="btn btn-sm btn-danger ">
           <BsTrash />
         </button>
-        <button @click="ShowFiles(item.id)" class="btn btn-sm btn-success">
+        <button v-if="item.filesCont > 0" @click="ShowFiles(item.id)" class="btn btn-sm btn-success">
           <PhThinFiles />
         </button>
       </div>
@@ -170,7 +170,7 @@ import { defineComponent, ref, computed, watch, onBeforeMount, reactive } from "
 import { useDataStore } from "@/stores/Data";
 import { useRouter } from "vue-router";
 import type { Header, Item, ServerOptions } from "vue3-easy-data-table";
-import { BsTrash, AkEdit, FlAddSquare, PhThinFiles, ReFileExcel2Line  } from '@kalimahapps/vue-icons';
+import { BsTrash, AkEdit, FlAddSquare, PhThinFiles, ReFileExcel2Line } from '@kalimahapps/vue-icons';
 import { MultiSelect, ModelSelect } from 'vue-search-select'
 
 export default defineComponent({
@@ -180,7 +180,7 @@ export default defineComponent({
     AkEdit,
     FlAddSquare,
     PhThinFiles,
-    ReFileExcel2Line ,
+    ReFileExcel2Line,
     MultiSelect,
     ModelSelect
   },
@@ -193,16 +193,16 @@ export default defineComponent({
       { text: "شهر", value: 'CityID' },
       { text: "مورد ارزیابی", value: 'Inspection' },
       { text: "تلفن همراه نماینده", value: 'RepresentativeMobile' },
-      { text: "نماینده", value: 'CompanyRepresentative_owner_ToVisit' },
+      { text: "نماینده", value: 'CompanyRepresentative_Owner_ToVisit' },
     ];
     const headers: Header[] = [
       { text: "شرکت", value: 'company', sortable: true },
       { text: "استان", value: 'province', sortable: true },
       { text: "شهر", value: 'City', sortable: true },
       { text: "مورد ارزیابی ( تجهیزاتماشین آلات / تاسیسات", value: 'inspection', sortable: true },
-
       { text: "تلفن همراه نماینده", value: 'representativeMobile', sortable: true },
-      { text: "نماینده شرکت ( مالک ) جهت بازدید", value: 'companyRepresentative_owner_ToVisit', sortable: true },
+      { text: "نماینده شرکت ( مالک ) جهت بازدید", value: 'companyRepresentative_Owner_ToVisit', sortable: true },
+      { text: "تعداد فایلها", value: 'filesCont', sortable: false },
       { text: "عملیات", value: "operation" },
       // { text: "منطقه شهرداری", value: 'municipalArea', sortable: true },
       // { text: "ناحیه شهرداری", value: 'regionalMunicipality', sortable: true },  
@@ -211,6 +211,7 @@ export default defineComponent({
     const loading = ref<Boolean>(false);
     const serverItemsLength = ref<Number>(0);
     const serverOptions = ref<ServerOptions>({ page: 1, rowsPerPage: 10, });
+    const serverOptionsForSelects = ref<ServerOptions>({ page: 0, rowsPerPage: 0, });
     const ProvinceList = ref([]);
     const CityList = ref([]);
     const CompanyList = ref([]);
@@ -220,7 +221,7 @@ export default defineComponent({
       CityID: { value: '', key: 0, oparation: '' },
       Inspection: { value: '', key: 0, oparation: '' },
       RepresentativeMobile: { value: '', key: 0, oparation: '' },
-      CompanyRepresentative_owner_ToVisit: { value: '', key: 0, oparation: '' },
+      CompanyRepresentative_Owner_ToVisit: { value: '', key: 0, oparation: '' },
     }
     const filter = ref<any | object>({
       searchFields: [],
@@ -239,11 +240,11 @@ export default defineComponent({
         FechData("");
     };
     onBeforeMount(() => {
-      store.FechLocations(serverOptions).then(() => {
+      store.FechLocations(serverOptionsForSelects).then(() => {
         ProvinceList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 1; });
         CityList.value = store.LocationsData.LocationList.filter((obj) => { return obj.levelId == 2; });
       });
-      store.FechCompanys(serverOptions).then(() => {
+      store.FechCompanys(serverOptionsForSelects).then(() => {
         CompanyList.value = store.CompanysData.CompanyList;
       });
     });
